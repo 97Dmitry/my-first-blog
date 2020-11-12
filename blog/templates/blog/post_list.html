@@ -11,11 +11,11 @@
         </div>
 
         <div>
-            <h2>
-                {% for post in posts %}
-                    {{ post }}<br>
-                {% endfor %}
-            </h2>
+            {% for post in posts %}
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>Дата публикации: {{ post.created_date }}</p>
+                <p>{{ post.text|linebreaksbr }}</p>
+            {% endfor %}
         </div>
 
         <div>
