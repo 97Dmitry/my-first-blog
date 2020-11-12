@@ -12,13 +12,10 @@
 
         <div>
             <h2>
-                <strong>А здесь список блогов</strong>
+                {% for post in posts %}
+                    {{ post }}<br>
+                {% endfor %}
             </h2>
-        </div>
-
-        <div>
-                <p>Информация отсутствует</p>
-                <p>Информация отсутствует</p>
         </div>
 
         <div>
