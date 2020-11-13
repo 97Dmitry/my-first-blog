@@ -1,0 +1,18 @@
+h1 {
+    color: #00072d;
+    font-family: fantasy;
+    background: #79c1e2;
+    padding: 45px;
+}
+.post h2 a{
+    color: #0087DF;
+}
+.post p {
+    font-family: cursive;
+}
+.date p {
+	font-family: serif;
+}
+body {
+    padding-left: 15px;
+}
