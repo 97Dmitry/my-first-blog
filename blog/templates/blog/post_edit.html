@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+        <!-- Link on static directory with css file -->
+        <link rel="stylesheet" href="{% static '/css/blog.css' %}" type="text/css">
+
+        <!-- Title -->
+        <title>Create new post</title>
+    </head>
+    <body>
+        <h1>Новый пост</h1>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+        <div class="link">
+            <p>Для подробной информации, обращайтесь по адресу: <a href="{% url 'about_blogs' %}">link</a></p>
+        </div>
+
+    </body>
+</html>
