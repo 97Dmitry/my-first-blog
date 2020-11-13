@@ -1,8 +1,11 @@
 h1 {
-    color: #00072d;
+    color: #000000d;
     font-family: fantasy;
-    background: #79c1e2;
+    background: #00afff7a;
     padding: 45px;
+    margin-right: 0px;
+    margin-left: -20px;
+    margin-top: 0;
 }
 .post h2 a{
     color: #0087DF;
@@ -14,5 +17,5 @@ h1 {
 	font-family: serif;
 }
 body {
-    padding-left: 15px;
+    padding-left: 20px;
 }
