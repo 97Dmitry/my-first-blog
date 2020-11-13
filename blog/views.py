@@ -13,3 +13,5 @@ def post_detail(request, pk):
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
+def about_blogs(request):
+    return render(request, 'blog/about_blogs.html')
