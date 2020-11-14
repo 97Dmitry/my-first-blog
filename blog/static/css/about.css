@@ -2,9 +2,12 @@ h3 {
     color: #00072d;
     font-family: fantasy;
     font-size: 38pt;
+    margin-right: 0px;
+    margin-left: -20px;
+    margin-top: 0;
 }
 body {
-    padding-left: 25px
+    padding-left: 15px
 }
 p {
     font-size: 28pt;
