@@ -19,3 +19,14 @@ h1 {
 body {
     padding-left: 20px;
 }
+.reg {
+	top: 0px;
+    position:absolute;
+    right: 0px;
+}
+
+.new_post {
+    down: 10px;
+    position:absolute;
+    right: 0px;
+}
