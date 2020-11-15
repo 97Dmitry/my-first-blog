@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 from .forms import SingUp
 
 
@@ -24,9 +23,14 @@ def sing_up(request):
 
 def sing_in(request):
     if request.method == 'POST':
-        None
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('post_list')
 
-
-    return render(request, 'authorization/sing_in.html')
+    context = {}
+    return render(request, 'authorization/sing_in.html', context)
 
 
