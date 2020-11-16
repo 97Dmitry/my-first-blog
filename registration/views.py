@@ -33,4 +33,6 @@ def sing_in(request):
     context = {}
     return render(request, 'authorization/sing_in.html', context)
 
-
+def logout_user(request):
+    logout(request)
+    return redirect('post_list')
