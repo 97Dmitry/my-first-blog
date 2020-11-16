@@ -36,3 +36,9 @@ body {
     position:absolute;
     right: 0px;
 }
+
+.logout {
+    position:absolute;
+    top: 40px;
+    right: 0px;
+}
