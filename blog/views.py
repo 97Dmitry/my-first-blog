@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from .forms import PostForm
 from .models import Post
 
+
 # Create your views here.
 
 def post_list(request):
@@ -37,11 +38,17 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
+
 def post_edit(request, pk):
     """Редактирование существующей записи"""
+    if not request.user.is_authenticated: # Проверка авторизации
+        return redirect('sing_in')
+    author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
+    if request.user.username != author_name.username:  # Если человек не является автором - редакция запрещена
+        return redirect('post_list')
     post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+    if request.method == "POST": # Если пользователь отправляет данные
+        form = PostForm(request.POST, instance=post) # В Post - форму становится возможным внести изменения и сохранить
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
