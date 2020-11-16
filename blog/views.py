@@ -23,6 +23,8 @@ def about_blogs(request):
 
 
 def post_new(request):
+    if not request.user.is_authenticated:
+        return redirect('sing_in')
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -36,6 +38,7 @@ def post_new(request):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 def post_edit(request, pk):
+    """Редактирование существующей записи"""
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
