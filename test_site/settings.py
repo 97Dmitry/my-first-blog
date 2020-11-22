@@ -113,6 +113,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+SHORT_DATETIME_FORMAT = 'j.m.Y H:i:s'
+
+SHORT_DATE_FORMAT = 'j.m.Y'
+
+TIME_FORMAT = 'H:i:s'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
