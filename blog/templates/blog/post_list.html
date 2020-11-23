@@ -38,6 +38,7 @@
             {% for post in posts %}
                 <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <p>Автор: {{ post.author }}</p>
+                <p>Тег: {{ post.rubric }}</p>
                 <div class="date">
                     <p>Дата публикации: {{ post.created_date }}</p>
                 </div>

@@ -10,6 +10,7 @@ class Post(models.Model):
     text = models.TextField(verbose_name='Текст')
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата публикации')
+    rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Тег')
 
     def publish(self):
         self.published_date = timezone.now()
@@ -17,3 +18,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title # Из БД будет возвращаться тайтл экземпляра в виде строки
+
+
+class Rubric(models.Model):
+
+    rubric = models.CharField(max_length= 25, db_index=True, verbose_name='Тег')
+
+    class Meta:
+        verbose_name_plural = 'Теги'
+        verbose_name = 'Тег'
+        ordering = ['rubric']
+
+    def __str__(self):      # Указывает на то, что все теги
+        return self.rubric  # будут называется своим именем
