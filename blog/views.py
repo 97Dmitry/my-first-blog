@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
 from .forms import PostForm
-from .models import Post
+from .models import Post,Rubric
 
 
 # Create your views here.
@@ -58,3 +58,11 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def by_rubric(request, rubric_id):
+    posts = Post.objects.filter(rubric=rubric_id)
+    rubrics = Rubric.objects.all()
+    current_rubric = Rubric.objects.get(pk=rubric_id)
+    context = {'posts': posts, 'rubrics': rubrics, 'current_rubric': current_rubric}
+
+    return render(request, 'blog/by_rubric.html', context)

@@ -9,14 +9,13 @@
         <link rel="stylesheet" href="{% static '/css/blog.css' %}" type="text/css">
 
         <!-- Title -->
-        <title>Page blogs</title>
+        <title>{{ current_rubric.rubric }}</title>
     </head>
-
     <div>
         <h1>
-            <strong>Здесь будет информация и приветсвие</strong>
+            <strong>{{ current_rubric.rubric }}</strong>
         </h1>
-        <div class="new_post">
+            <div class="new_post">
             <p> <a href="{% url 'post_new' %}"> <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"/>
                 <path fill-rule="evenodd" d="M4.5 10.5A.5.5 0 0 1 5 10h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
@@ -32,23 +31,15 @@
             <a href="{% url 'logout' %}">Выйти</a>
         </div>
     </div>
-    <body>
+<body>
+        {% for post in posts %}
+    <div>
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.text }}</p>
+        <p>{{ post.published|date:"d.m.Y H:i:s" }}</p>
+    </div>
+    {% endfor %}
 
-        <div class="post">
-            {% for post in posts %}
-                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-                <p>Автор: {{ post.author }}</p>
-                <p>Тег: <a href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
-                <div class="date">
-                    <p>Дата публикации: {{ post.created_date }}</p>
-                </div>
-                <p>{{ post.text|linebreaksbr }}</p>
-            {% endfor %}
-        </div>
 
-        <div class="link">
-            <p>Для подробной информации, обращайтесь по адресу: <a href="{% url 'about_blogs' %}">link</a></p>
-        </div>
-
-    </body>
+</body>
 </html>
