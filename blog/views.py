@@ -60,6 +60,11 @@ def post_edit(request, pk):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 def by_rubric(request, rubric_id):
+    """ Получив rubric_id из urls, мы в переменную posts получаем
+        все посты с данным тегом. В current_rubric мы получили название
+        название тега. Затем всё это выводится в цикле for в HTML
+        файле by_rubric.html
+    """
     posts = Post.objects.filter(rubric=rubric_id)
     rubrics = Rubric.objects.all()
     current_rubric = Rubric.objects.get(pk=rubric_id)
