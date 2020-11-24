@@ -10,5 +10,6 @@ urlpatterns = [
     path('teg/<int:rubric_id>/', views.by_rubric, name='by_rubric'),
     # Из HTML главной страницы мы получили post.rubric.pk который стал
     # <int:rubric_id> , после чего id отправляется в views.by_rubric
+    path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
 
 ]
