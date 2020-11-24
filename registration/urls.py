@@ -7,8 +7,3 @@ urlpatterns = [
     url('logout/', views.logout_user, name='logout'),
 
 ]
-
-
-
-
-
