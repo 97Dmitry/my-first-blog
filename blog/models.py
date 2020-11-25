@@ -8,12 +8,12 @@ from django.core import validators
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заглавие',
-                             validators=[validators.RegexValidator(regex=r'\W+',
+                             validators=[validators.RegexValidator(regex=r'[@#$%&*]+',
                                                                    message='Заголовок должен состоять из букв и цифр',
                                                                    inverse_match=True),
                                          validators.MinLengthValidator(5, message='Длина заголовка меньше 5 символов')])
     text = models.TextField(verbose_name='Текст',
-                            validators=[validators.MinLengthValidator(150, message='Длина текста меньше 150 символов')])
+                            validators=[validators.MinLengthValidator(120, message='Длина текста меньше 150 символов')])
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата публикации')
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Тег')
