@@ -84,3 +84,7 @@ def delete_post(request, pk):
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect('post_list')
+
+
+def home(request):
+    return redirect('post_list')

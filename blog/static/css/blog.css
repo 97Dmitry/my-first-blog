@@ -42,3 +42,8 @@ body {
     top: 40px;
     right: 0px;
 }
+
+.home {
+    position:absolute;
+    top: 0px;
+}

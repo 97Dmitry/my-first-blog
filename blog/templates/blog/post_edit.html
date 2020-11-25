@@ -12,7 +12,11 @@
 
         <!-- Title -->
         <title>Create new post</title>
+
     </head>
+        <div class="home">
+            <a href="{% url 'home' %}">На главную</a>
+        </div>
     <body>
         <h1>Новый пост</h1>
         <form method="POST" class="post-form">{% csrf_token %}
