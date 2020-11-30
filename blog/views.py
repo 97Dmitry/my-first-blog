@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.shortcuts import redirect
+from django.db.models import Count
 from .forms import PostForm
 from .models import Post, Rubric
 
@@ -10,7 +11,9 @@ from .models import Post, Rubric
 def post_list(request):
     posts = Post.objects.all()
     # posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    count_posts = Post.objects.values('title').aggregate(Count('title'))
+    context = {'posts': posts, 'count_posts': count_posts.get('title__count')}
+    return render(request, 'blog/post_list.html', context)
 
 
 def post_detail(request, pk):
@@ -69,7 +72,9 @@ def by_rubric(request, rubric_id):
     posts = Post.objects.filter(rubric=rubric_id)
     rubrics = Rubric.objects.all()
     current_rubric = Rubric.objects.get(pk=rubric_id)
-    context = {'posts': posts, 'rubrics': rubrics, 'current_rubric': current_rubric}
+    count_posts = len(posts)
+    context = {'posts': posts, 'rubrics': rubrics, 'current_rubric': current_rubric,
+               'count_posts': count_posts}
 
     return render(request, 'blog/by_rubric.html', context)
 
