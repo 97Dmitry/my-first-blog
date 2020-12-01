@@ -85,7 +85,7 @@ def delete_post(request, pk):
     author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
     if request.user.username != author_name.username:  # Если человек не является автором - удаление запрещено
         return redirect('post_list')
-    #if request.method == "POST":
+    # if request.method == "POST":
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect('post_list')

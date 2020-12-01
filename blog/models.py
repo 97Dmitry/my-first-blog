@@ -37,3 +37,27 @@ class Rubric(models.Model):
 
     def __str__(self):  # Указывает на то, что все теги
         return self.rubric  # будут называется своим именем
+
+
+# class Rating(models.Model):
+#     value = models.SmallIntegerField(verbose_name='Оценка', default=0)
+#
+#     def __str__(self):
+#         return f'{self.value}'
+#
+#     class Meta:
+#         verbose_name = 'Оценка'
+#         verbose_name_plural = 'Оценка'
+#         ordering = ['-rating']
+#
+#
+# class ValueRating(models.Model):
+#     ip = models.CharField(max_length=15, verbose_name='IP-адрес')
+#     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Оценка')
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись')
+#
+#     def __str__(self):
+#         return f'{self.rating} - {self.post}'
+#
+#     class Meta:
+#         verbose_name = 'Рейтинг'
