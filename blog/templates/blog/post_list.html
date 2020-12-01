@@ -23,13 +23,20 @@
             </svg> </a> <- для создания нового поста, нажмите сюда</p>
         </div>
         <div class="reg">
-            <a href="{% url 'sing_up' %}">Зарегестрироваться</a>
+            {% if user.is_anonymous %}
+                <a href="{% url 'sing_up' %}">Зарегестрироваться</a>
+            {% endif %}
         </div>
         <div class="logging">
-            <a href="{% url 'sing_in' %}">Авторизоваться</a>
+            {% if user.is_anonymous %}
+                <a href="{% url 'sing_in' %}">Авторизоваться</a>
+            {% endif %}
         </div>
         <div class="logout">
-            <a href="{% url 'logout' %}">Выйти</a>
+            <span> {{ user.username }} </span>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Выйти</a>
+            {% endif %}
         </div>
     </div>
     <body>
