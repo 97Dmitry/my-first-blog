@@ -40,6 +40,9 @@
                 <a href="{% url 'logout' %}">Выйти</a>
             {% endif %}
         </div>
+        <div class="home">
+            <a href="{% url 'home' %}">На главную</a>
+        </div>
     </div>
 <body>
     <p>Всего записей в категории {{ current_rubric }}: {{ count_posts }} </p>
