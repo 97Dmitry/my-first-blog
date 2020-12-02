@@ -11,8 +11,7 @@ def post_list(request):
     posts = Post.objects.all()
     # posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     count_posts = Post.objects.values('title').aggregate(Count('title'))
-    r = (request.META['HTTP_HOST'])
-    context = {'posts': posts, 'count_posts': count_posts.get('title__count'), 'r': r}
+    context = {'posts': posts, 'count_posts': count_posts.get('title__count')}
     return render(request, 'blog/post_list.html', context)
 
 
