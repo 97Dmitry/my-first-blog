@@ -30,7 +30,7 @@ def post_new(request):
         return redirect('sing_in')
     if request.method == "POST":
         form = PostForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data():
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
@@ -51,7 +51,7 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":  # Если пользователь отправляет данные
         form = PostForm(request.POST, instance=post)  # В Post - форму становится возможным внести изменения и сохранить
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data():
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
