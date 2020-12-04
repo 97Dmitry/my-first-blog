@@ -7,18 +7,15 @@ h1 {
     margin-left: -20px;
     margin-top: 0;
 }
-.post h2 a{
-    color: #0087DF;
-}
-.post p {
-    font-family: cursive;
-}
+
 .date p {
 	font-family: serif;
 }
+
 body {
     padding-left: 20px;
 }
+
 .reg {
 	top: 0px;
     position:absolute;
@@ -44,6 +41,7 @@ body {
 }
 
 .home {
+    left: 0px;
     position:absolute;
     top: 0px;
 }
