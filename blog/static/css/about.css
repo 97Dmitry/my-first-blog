@@ -3,7 +3,7 @@ h3 {
     font-family: fantasy;
     font-size: 38pt;
     margin-right: 0px;
-    margin-left: -20px;
+    margin-left: 0px;
     margin-top: 0;
 }
 body {
@@ -11,4 +11,5 @@ body {
 }
 p {
     font-size: 28pt;
+    right: 15px;
 }
