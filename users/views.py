@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from .forms import SingUp
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from .forms import SingUp
-
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -17,6 +16,7 @@ def sing_up(request):
             # login(request, user)
             return redirect('post_list')
     else:
+
         form = SingUp()
     context = {'form': form}
     return render(request, 'registration/sing_up.html', context)
