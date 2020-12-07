@@ -14,7 +14,10 @@
             <p>Дата публикации: {{ post.published_date }}</p>
         </div>
     {% endif %}
-    <p>Автор: {{ post.author }} </p>
+    <div class="media text-muted pt-3">
+        <img class="mr-2 rounded" style="width: 48px; height: 48px;" src="{{ post.author.profile.picture.url }}">
+        <p class="mb-1 ml-1 middle lh-sm"><strong class="d-block">@{{ post.author }}</strong>Автор записи</p>
+    </div>
     <p>Тег: {{ post.rubric }}</p>
     <div class="text">
         <hr/>
