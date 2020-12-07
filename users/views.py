@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import SingUp
 
@@ -45,8 +45,8 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            # TODO: Добавить автоматическую авторизацию после смены пароля
-            redirect('user_page')
+            update_session_auth_hash(request, form.user)
+            #redirect('user_page')
         else:
             redirect('change_password')
     else:
@@ -55,4 +55,7 @@ def change_password(request):
     return render(request, 'user_page/change_password.html', context)
 
 def user_page(request):
-    return render(request, 'user_page/user_page.html')
+    if request.user.is_authenticated:
+        return render(request, 'user_page/user_page.html')
+    else:
+        redirect('post_list')
