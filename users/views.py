@@ -52,3 +52,6 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
     context = {'form': form}
     return render(request, 'user_page/change_password.html', context)
+
+def user_page(request):
+    return render(request, 'user_page/user_page.html')

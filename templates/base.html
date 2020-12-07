@@ -52,7 +52,7 @@
         </div>
         <div class="logout">
             {% if user.is_authenticated %}
-            <span> {{ user.username }} </span>
+            <span> <a href="{% url 'user_page' %}">{{ user.username }}</a> </span>
             <button type="button" class="btn btn-outline-danger"><a href="{% url 'logout' %}"
                                                                     style="color:#130106;">Выйти</a></button>
             {% endif %}

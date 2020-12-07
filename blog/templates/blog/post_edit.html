@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block h1 %}
-    Редактирование записи {{ post.title }}
+    Редактирование или создание записи {{ post.title }}
 {% endblock %}
 
 {% block content %}
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-success">Save</button>
     </form>
 {% endblock %}
