@@ -65,4 +65,4 @@ def user_page(request):
         content = {'user_posts': user_posts}
         return render(request, 'user_page/user_page.html', content)
     else:
-        redirect('post_list')
+        return redirect('post_list')
