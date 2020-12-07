@@ -40,18 +40,21 @@
         </div>
         <div class="reg">
             {% if user.is_anonymous %}
-                <button type="button" class="btn btn-success"><a href="{% url 'sing_up' %}">Зарегестрироваться</a></button>
+                <button type="button" class="btn btn-success"><a href="{% url 'sing_up' %}"
+                                                                 style="color:#130106;">Зарегестрироваться</a></button>
             {% endif %}
         </div>
         <div class="logging">
             {% if user.is_anonymous %}
-            <button type="button" class="btn btn-info"><a href="{% url 'sing_in' %}">Авторизоваться</a></button>
+            <button type="button" class="btn btn-info"><a href="{% url 'sing_in' %}"
+                                                          style="color:#130106;">Авторизоваться</a></button>
             {% endif %}
         </div>
         <div class="logout">
             {% if user.is_authenticated %}
             <span> {{ user.username }} </span>
-            <button type="button" class="btn btn-outline-danger"><a href="{% url 'logout' %}">Выйти</a></button>
+            <button type="button" class="btn btn-outline-danger"><a href="{% url 'logout' %}"
+                                                                    style="color:#130106;">Выйти</a></button>
             {% endif %}
         </div>
     </div>

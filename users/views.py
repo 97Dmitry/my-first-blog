@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import PasswordChangeForm
 from .forms import SingUp
 
 
@@ -37,3 +38,17 @@ def sing_in(request):
 def logout_user(request):
     logout(request)
     return redirect('post_list')
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            redirect('my_account')
+        else:
+            redirect('change_password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    context = {'form': form}
+    return render(request, 'user_page/change_password.html', context)
