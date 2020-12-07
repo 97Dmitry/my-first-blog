@@ -10,4 +10,11 @@
 
 {% block content %}
     Для смены пароля нажми сюда -> <a href="{% url 'change_password' %}">Тык</a>
+    <p></p>
+    {% if user_posts %}
+        Все ваши публикации:
+        {% for post in user_posts %}
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

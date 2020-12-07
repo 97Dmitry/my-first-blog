@@ -1,4 +1,5 @@
 from .forms import SingUp
+from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -60,6 +61,8 @@ def change_password(request):
 
 def user_page(request):
     if request.user.is_authenticated:
-        return render(request, 'user_page/user_page.html')
+        user_posts = Post.objects.filter(author=request.user)
+        content = {'user_posts': user_posts}
+        return render(request, 'user_page/user_page.html', content)
     else:
         redirect('post_list')
