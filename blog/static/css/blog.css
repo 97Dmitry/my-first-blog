@@ -45,3 +45,33 @@ body {
     position:absolute;
     top: 0px;
 }
+
+/*Окно предупреждающего сообщения*/
+.alert {
+    top: 40px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    padding: 30px;
+    background-color: #009933;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Кнопка закрытия */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* При наведении курсора мыши на кнопку закрытия */
+.closebtn:hover {
+    color: black;
+}

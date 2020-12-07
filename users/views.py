@@ -1,4 +1,5 @@
 from .forms import SingUp
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
@@ -14,6 +15,7 @@ def sing_up(request):
             # raw_password = form.cleaned_data.get('password')
             # user = authenticate(username=username, password=raw_password)
             # login(request, user)
+            messages.success(request, 'Вы успешно зарегестрировались')
             return redirect('post_list')
     else:
 
@@ -29,6 +31,7 @@ def sing_in(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, f'Вы успешно авторизовались под именем {username}')
             return redirect('post_list')
 
     context = {}
@@ -37,6 +40,7 @@ def sing_in(request):
 
 def logout_user(request):
     logout(request)
+    messages.success(request, 'Вы вышли из аккаунта')
     return redirect('post_list')
 
 
@@ -45,8 +49,8 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Пароль успешно изменен')
             update_session_auth_hash(request, form.user)
-            #redirect('user_page')
         else:
             redirect('change_password')
     else:

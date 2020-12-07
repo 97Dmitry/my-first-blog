@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -35,6 +36,7 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
+            messages.success(request, 'Пост успешно создан')
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
@@ -56,6 +58,7 @@ def post_edit(request, pk):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
+            messages.success(request, 'Пост успешно изменен')
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
@@ -87,6 +90,7 @@ def delete_post(request, pk):
     # if request.method == "POST":
     post = Post.objects.get(pk=pk)
     post.delete()
+    messages.success(request, 'Пост успешно удалён')
     return redirect('post_list')
 
 
