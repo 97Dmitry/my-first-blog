@@ -65,4 +65,5 @@ def user_page(request):
         content = {'user_posts': user_posts}
         return render(request, 'user_page/user_page.html', content)
     else:
+        messages.info(request, 'Вы не авторизованны! Войдите или создайте аккаунт')
         return redirect('post_list')

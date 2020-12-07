@@ -28,6 +28,7 @@ def about_blogs(request):
 
 def post_new(request):
     if not request.user.is_authenticated:
+        messages.info(request, 'Что бы создать новую запись, вы должны быть авторизованны')
         return redirect('sing_in')
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -46,9 +47,11 @@ def post_new(request):
 def post_edit(request, pk):
     """Редактирование существующей записи"""
     if not request.user.is_authenticated:  # Проверка авторизации
+        messages.info(request, 'Вы не авторизованны! Войдите в аккаунт')
         return redirect('sing_in')
     author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
     if request.user.username != author_name.username:  # Если человек не является автором - редакция запрещена
+        messages.info(request, 'Это не ваша запись и вы не можете её редактировать')
         return redirect('post_list')
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":  # Если пользователь отправляет данные
@@ -83,9 +86,11 @@ def by_rubric(request, rubric_id):
 
 def delete_post(request, pk):
     if not request.user.is_authenticated:  # Проверка авторизации
+        messages.info(request, 'Вы не авторизованны! Войдите в аккаунт')
         return redirect('sing_in')
     author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
     if request.user.username != author_name.username:  # Если человек не является автором - удаление запрещено
+        messages.info(request, 'Это не ваша запись и вы не можете её удалить')
         return redirect('post_list')
     # if request.method == "POST":
     post = Post.objects.get(pk=pk)
