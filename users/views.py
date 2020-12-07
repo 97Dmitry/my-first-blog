@@ -45,7 +45,8 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            redirect('my_account')
+            # TODO: Добавить автоматическую авторизацию после смены пароля
+            redirect('user_page')
         else:
             redirect('change_password')
     else:
