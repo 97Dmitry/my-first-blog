@@ -9,6 +9,11 @@
 {% endblock %}
 
 {% block content %}
+    <div class="media text-muted pt-3">
+        <img class="mr-2 rounded" style="width: 80px; height: 80px;" src="{{ user.profile.picture.url }}">
+        <p class="mb-1 ml-1 middle lh-sm"><strong class="d-block">@{{ user.username }}</strong>Ваш профиль</p>
+    </div>
+    <p></p>
     Для смены пароля нажми сюда -> <a href="{% url 'change_password' %}">Тык</a>
     <p></p>
     {% if user_posts %}
