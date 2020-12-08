@@ -1,4 +1,4 @@
-from .forms import SingUp
+from .forms import SingUp, ChangeUserDataForm, UserAvatarPicture
 from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
@@ -61,8 +61,22 @@ def change_password(request):
 
 def user_page(request):
     if request.user.is_authenticated:
+        if request.method == 'POST':
+            change_data = ChangeUserDataForm(request.POST, instance=request.user)
+            change_avatar = UserAvatarPicture(request.POST, request.FILES ,instance=request.user.profile)
+            if change_data.is_valid() and change_avatar.is_valid():
+                change_avatar.save()
+                change_data.save()
+                messages.success(request, 'Вы успешно изменили данные')
+                return redirect('user_page')
+        change_data = ChangeUserDataForm(instance=request.user)
+        change_avatar = UserAvatarPicture(instance=request.user.profile)
         user_posts = Post.objects.filter(author=request.user)
-        content = {'user_posts': user_posts}
+        content = {
+            'user_posts': user_posts,
+            'change_data': change_data,
+            'change_avatar': change_avatar
+        }
         return render(request, 'user_page/user_page.html', content)
     else:
         messages.info(request, 'Вы не авторизованны! Войдите или создайте аккаунт')

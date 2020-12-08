@@ -16,6 +16,20 @@
     <p></p>
     Для смены пароля нажми сюда -> <a href="{% url 'change_password' %}">Тык</a>
     <p></p>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="changer_data">
+            <h3>Для смены картинки аккаунта: </h3>
+            {{ change_avatar }}
+            <p></p>
+            <h3>Для смены данных: </h3>
+            <p> Имя пользователя:   {{ change_data.username }}</p>
+            <p> Email пользователя: {{ change_data.email }}</p>
+            <p></p>
+            <button type="submit" class="btn btn-outline-warning">Загрузить новые данные</button>
+            <p></p>
+        </div>
+    </form>
     {% if user_posts %}
         Все ваши публикации:
         {% for post in user_posts %}
