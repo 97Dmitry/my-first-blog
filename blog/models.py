@@ -7,8 +7,7 @@ from django.core import validators
 # Create your models here.
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name='Автор',
-                               default='Неизвестный автор')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заглавие',
                              validators=[validators.RegexValidator(regex=r'[@#$%&*]+',
                                                                    message='Заголовок должен состоять из букв и цифр',
