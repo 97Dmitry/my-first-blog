@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 
+
 # Create your views here.
 
 def sing_up(request):
@@ -59,11 +60,12 @@ def change_password(request):
     context = {'form': form}
     return render(request, 'user_page/change_password.html', context)
 
+
 def user_page(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             change_data = ChangeUserDataForm(request.POST, instance=request.user)
-            change_avatar = UserAvatarPicture(request.POST, request.FILES ,instance=request.user.profile)
+            change_avatar = UserAvatarPicture(request.POST, request.FILES, instance=request.user.profile)
             if change_data.is_valid() and change_avatar.is_valid():
                 change_avatar.save()
                 change_data.save()
