@@ -7,7 +7,8 @@ from django.core import validators
 # Create your models here.
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_DEFAULT, verbose_name='Автор',
+                               default='Неизвестный автор')
     title = models.CharField(max_length=200, verbose_name='Заглавие',
                              validators=[validators.RegexValidator(regex=r'[@#$%&*]+',
                                                                    message='Заголовок должен состоять из букв и цифр',
@@ -17,7 +18,7 @@ class Post(models.Model):
                             validators=[validators.MinLengthValidator(120, message='Длина текста меньше 150 символов')])
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата публикации')
-    rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Тег')
+    rubric = models.ForeignKey('Rubric', null=True, on_delete=models.SET_NULL, verbose_name='Тег')
 
     def publish(self):
         self.published_date = timezone.now()
