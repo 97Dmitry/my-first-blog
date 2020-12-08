@@ -26,6 +26,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title  # Из БД будет возвращаться тайтл экземпляра в виде строки
 
+    class Meta:
+        ordering = ['-created_date', ]
+
 
 class Rubric(models.Model):
     rubric = models.CharField(max_length=25, db_index=True, verbose_name='Тег')

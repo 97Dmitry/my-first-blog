@@ -10,18 +10,40 @@
 {% block content %}
     <p>Всего записей: {{ count_posts }}</p>
     <div class="post">
-        {% for post in posts %}
-        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-        <div class="media text-muted pt-3">
-            <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}">
-            <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ post.author }}</strong>Автор записи</p>
-        </div>
-        <p>Тег: <a href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
-        <div class="date">
-            <p>Дата публикации: {{ post.created_date }}</p>
-        </div>
-        <p>{{ post.text|linebreaksbr }}</p>
-        <hr/>
+        {% for post in page %}
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <div class="media text-muted pt-3">
+                <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}">
+                <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ post.author }}</strong>Автор записи</p>
+            </div>
+            <p>Тег: <a href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
+            <div class="date">
+                <p>Дата публикации: {{ post.created_date }}</p>
+            </div>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <hr/>
         {% endfor %}
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                    <a class="page-link" href="{{ prev_url }}">Предыдущая страница</a>
+                </li>
+                {% for n in page.paginator.page_range %}
+                    {% if page.number == n %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                        </li>
+                    {% elif n > page.number|add:-3 and n < page.number|add:3 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item {% if not next_url %} disabled {% endif %}">
+                    <a class="page-link" href="{{ next_url }}">Следующая страница</a>
+                </li>
+            </ul>
+        </nav>
+        <hr/>
     </div>
 {% endblock %}
