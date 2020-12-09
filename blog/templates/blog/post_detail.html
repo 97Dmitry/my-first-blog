@@ -23,6 +23,24 @@
         <hr/>
         <p>{{ post.text|linebreaksbr }}</p>
         <hr/>
+        <h5>Комментарии:</h5>
+        <details>
+            <div class="comments">
+                {% for comment in comments %}
+                    <div class="media text-muted pt-3">
+                        <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ comment.name.profile.picture.url }}">
+                        <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ comment.name }}</strong>Автор комментария</p>
+                    </div>
+                    <div class="date">
+                        <p> Дата написания: {{ comment.created }} </p>
+                    </div>
+                    <p> Комментарий: </p>
+                    <p class="ml-2"> {{ comment.comment }} </p>
+                    <hr/>
+                {% endfor %}
+            </div>
+        </details>
+        <hr/>
     </div>
     <p>Для редактирования записи нажмите сюда -> <a href="{% url 'post_edit' pk=post.pk %}">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor"

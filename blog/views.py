@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import PostForm
-from .models import Post, Rubric
+from .models import Post, Rubric, Comments
 
 
 def post_list(request):
@@ -37,12 +37,18 @@ def post_list(request):
     }
     return render(request, 'blog/post_list.html', context)
 
+# class ContactList(ListView): Пагинация встроенна в ListView
+#     paginate_by = 2
+#     model = Post
+
 
 def post_detail(request, pk):
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all()
     context = {
-        'post': post
+        'post': post,
+        'comments': comments
     }
     return render(request, 'blog/post_detail.html', context)
 

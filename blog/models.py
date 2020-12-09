@@ -42,6 +42,36 @@ class Rubric(models.Model):
         return self.rubric  # будут называется своим именем
 
 
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    name = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Комментатор')
+    email = models.EmailField(blank=True, null=True, help_text='Адрес не валиден')
+    comment = models.TextField(max_length=1000, verbose_name='Комментарий',
+                               help_text='Комментарий может содержать до 1000 символов')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = 'Комментарии'
+        verbose_name = 'Комментарии'
+        ordering = ('created',)
+
+    def __str__(self):
+         return f'Комментарий {self.name} к посту {self.post}'
+
+
+
+
+
+
+
+
+
+
+
+
+
 # class Rating(models.Model):
 #     value = models.SmallIntegerField(verbose_name='Оценка', default=0)
 #
@@ -54,7 +84,7 @@ class Rubric(models.Model):
 #         ordering = ['-rating']
 #
 #
-# class ValueRating(models.Model):
+# class ValueRatingPost(models.Model):
 #     ip = models.CharField(max_length=15, verbose_name='IP-адрес')
 #     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Оценка')
 #     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись')
