@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from .forms import PostForm
-from .models import Post, Rubric, Comments
+from .forms import PostForm, CommentsForm
+from .models import Post, Rubric
 
 
 def post_list(request):
@@ -43,12 +43,22 @@ def post_list(request):
 
 
 def post_detail(request, pk):
+    form = CommentsForm()
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
+    if request.method == "POST":
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post =Post.objects.get(pk=pk)
+            comment.name = request.user
+            comment.save()
+            return redirect('post_detail')
     context = {
         'post': post,
-        'comments': comments
+        'comments': comments,
+        'form': form
     }
     return render(request, 'blog/post_detail.html', context)
 

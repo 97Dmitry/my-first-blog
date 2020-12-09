@@ -41,6 +41,16 @@
             </div>
         </details>
         <hr/>
+        <h5>Создать свой комментарий:</h5>
+        <details>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                <p> Комментарий: <br />{{ form.comment }} <br /> {{ form.comment.help_text }} </p>
+                <p> Email: <br />{{ form.email }} </p>
+            <button type="submit" class="save btn btn-success">Создать</button>
+            </form>
+        </details>
+        <hr/>
     </div>
     <p>Для редактирования записи нажмите сюда -> <a href="{% url 'post_edit' pk=post.pk %}">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor"
