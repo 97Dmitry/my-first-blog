@@ -54,7 +54,8 @@ def post_detail(request, pk):
             comment.post =Post.objects.get(pk=pk)
             comment.name = request.user
             comment.save()
-            return redirect('post_detail')
+            messages.success(request, 'Комментарий успешно добавлен')
+            redirect(f'post_detail/{pk}')
     context = {
         'post': post,
         'comments': comments,
