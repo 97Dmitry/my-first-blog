@@ -20,11 +20,12 @@
         {% csrf_token %}
         <div class="changer_data">
             <h3>Для смены картинки аккаунта: </h3>
-            {{ change_avatar }}
+            <p class="font-weight-bold"> {{ change_avatar }} </p>
             <p></p>
             <h3>Для смены данных: </h3>
-            <p> Имя пользователя:   {{ change_data.username }}</p>
-            <p> Email пользователя: {{ change_data.email }}</p>
+            <p class="font-weight-bold"> Имя пользователя:   {{ change_data.username }}</p>
+            <p class="font-italic"> {{ change_data.username.help_text }} </p>
+            <p class="pt-4 font-weight-bold"> Email пользователя: {{ change_data.email }}</p>
             <p></p>
             <button type="submit" class="btn btn-success">Обновить данные</button>
             <p></p>
