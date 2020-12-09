@@ -12,12 +12,14 @@ class SingUp(UserCreationForm):
                                    inverse_match=True), validators.MinLengthValidator(
                                    3, message='Длина имени меньше 3 символов'),
                                    validators.MaxLengthValidator(25, message='Длина имени больше 25 символов')])
+
     password1 = forms.CharField(help_text='Пароль должен состоять из букв и цифр',
                                 validators=[validators.RegexValidator(
                                     regex=r'[@#$%&*]+', message='Заголовок должен состоять из букв и цифр',
                                     inverse_match=True), validators.MinLengthValidator(
                                     8, message='Длина пароля меньше 8 символов')],
-                                widget=forms.PasswordInput())
+                                widget=forms.PasswordInput())  # Параметр widget определяет как будет себя вести форма
+
     password2 = forms.CharField(help_text='Пароль должен состоять из букв и цифр',
                                 validators=[validators.RegexValidator(
                                     regex=r'[@#$%&*]+', message='Заголовок должен состоять из букв и цифр',

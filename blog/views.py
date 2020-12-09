@@ -37,6 +37,7 @@ def post_list(request):
     }
     return render(request, 'blog/post_list.html', context)
 
+
 # class ContactList(ListView): Пагинация встроенна в ListView
 #     paginate_by = 2
 #     model = Post
@@ -51,7 +52,7 @@ def post_detail(request, pk):
         form = CommentsForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post =Post.objects.get(pk=pk)
+            comment.post = Post.objects.get(pk=pk)
             comment.name = request.user
             comment.save()
             messages.success(request, 'Комментарий успешно добавлен')
@@ -75,7 +76,8 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = form.save(commit=False)  # commit равный False указывает на то, что форма готова к сохранению,
+            # но в нее нужно еще внести изменения и сохранение произойдет после повторного вызова метода save()
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
@@ -102,7 +104,8 @@ def post_edit(request, pk):
     if request.method == "POST":  # Если пользователь отправляет данные
         form = PostForm(request.POST, instance=post)  # В Post - форму становится возможным внести изменения и сохранить
         if form.is_valid():
-            post = form.save(commit=False)
+            post = form.save(commit=False)  # commit равный False указывает на то, что форма готова к сохранению,
+            # но в нее нужно еще внести изменения и сохранение произойдет после повторного вызова метода save()
             post.author = request.user
             post.published_date = timezone.now()
             post.save()

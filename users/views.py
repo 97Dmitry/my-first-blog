@@ -64,7 +64,8 @@ def change_password(request):
 def user_page(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            change_data = ChangeUserDataForm(request.POST, instance=request.user)
+            change_data = ChangeUserDataForm(request.POST,
+                                             instance=request.user)  # instance указывает что будет в поле по дефолту
             change_avatar = UserAvatarPicture(request.POST, request.FILES, instance=request.user.profile)
             if change_data.is_valid() and change_avatar.is_valid():
                 change_avatar.save()
