@@ -3,12 +3,17 @@ from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
 
 # Create your views here.
 
 def sing_up(request):
+    if request.user.is_authenticated:
+        messages.info(request, 'Вы уже зарегистрированны. Для создания нового аккаунта, выйдете из системы')
+        return redirect('post_list')
     if request.method == 'POST':
         form = SingUp(request.POST)
         if form.is_valid():
@@ -27,6 +32,9 @@ def sing_up(request):
 
 
 def sing_in(request):
+    if request.user.is_authenticated:
+        messages.info(request, 'Вы уже авторизованны')
+        return redirect('post_list')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -84,3 +92,21 @@ def user_page(request):
     else:
         messages.info(request, 'Вы не авторизованны! Войдите или создайте аккаунт')
         return redirect('post_list')
+
+
+class PasswordRecovery(PasswordResetView):
+    pass
+    template_name = 'authorization/password_recovery_form.html'
+    subject_template_name = 'authorization/password_recovery_subject.txt'
+    email_template_name = 'authorization/body_email_password_recovery.html'
+    success_url = reverse_lazy('password_recovery_done')
+
+
+class PasswordRecoveryDone(PasswordResetDoneView):
+    template_name = 'authorization/password_recovery_done.html'
+
+
+class PasswordRecoveryConfirm(PasswordResetConfirmView):
+    template_name = 'authorization/password_recovery_confirm.html'
+    post_reset_login = True
+    success_url = reverse_lazy('post_list')
