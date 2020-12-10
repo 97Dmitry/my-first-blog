@@ -5,7 +5,7 @@ body, html {
 	background: #00afff45 !important;
 }
 .user_card {
-    width: 350px;
+    width: 400px;
 	margin-top: auto;
 	margin-bottom: auto;
 	background: #74cfbf;
@@ -20,7 +20,7 @@ body, html {
 	border-radius: 5px;
 }
 
-	.form_container {
+.form_container {
 	margin-top: 20px;
 }
 
