@@ -1,6 +1,6 @@
 from django import forms
 from django.core import validators
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -72,3 +72,20 @@ class UserAvatarPicture(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('picture',)
+
+
+class RecoveryPassword(SetPasswordForm):
+    new_password1 = forms.CharField(label='Новый пароль',
+                                    help_text='Пароль должен состоять из букв и цифр',
+                                    validators=[validators.RegexValidator(
+                                        regex=r'[@#$%&*]+', message='Пароль должен состоять из букв и цифр',
+                                        inverse_match=True), validators.MinLengthValidator(
+                                        8, message='Длина пароля меньше 8 символов')],
+                                    widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label='Повторите новый пароль',
+                                    help_text='Пароль должен состоять из букв и цифр',
+                                    validators=[validators.RegexValidator(
+                                        regex=r'[@#$%&*]+', message='Пароль должен состоять из букв и цифр',
+                                        inverse_match=True), validators.MinLengthValidator(
+                                        8, message='Длина пароля меньше 8 символов')],
+                                    widget=forms.PasswordInput())

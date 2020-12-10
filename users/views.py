@@ -1,9 +1,10 @@
-from .forms import SingUp, ChangeUserDataForm, UserAvatarPicture
+from .forms import SingUp, ChangeUserDataForm, UserAvatarPicture, RecoveryPassword
 from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, \
+    PasswordResetDoneView, PasswordResetCompleteView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -108,5 +109,10 @@ class PasswordRecoveryDone(PasswordResetDoneView):
 
 class PasswordRecoveryConfirm(PasswordResetConfirmView):
     template_name = 'authorization/password_recovery_confirm.html'
+    form_class = RecoveryPassword
     post_reset_login = True
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('recovery_complete')
+
+
+class PasswordRecoverComplete(PasswordResetCompleteView):
+    template_name = 'authorization/password_recovery_complete.html'

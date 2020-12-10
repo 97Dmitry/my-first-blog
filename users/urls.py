@@ -9,6 +9,8 @@ urlpatterns = [
     url('user_page/', views.user_page, name='user_page'),
     url('recovery_password/', views.PasswordRecovery.as_view(), name='recovery_password'),
     url('password_recovery_done', views.PasswordRecoveryDone.as_view(), name='password_recovery_done'),
-    url('recovery_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', views.PasswordRecoveryConfirm.as_view(), name='recovery_confirm'),
+    url('recovery_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        views.PasswordRecoveryConfirm.as_view(), name='recovery_confirm'),
+    url('recovery_complete/', views.PasswordRecoverComplete.as_view(), name='recovery_complete'),
 
 ]
