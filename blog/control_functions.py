@@ -19,4 +19,4 @@ def edit_post(request):
     if 'СуперПользователь' in a:
         return 1
     else:
-        return 1
+        return 0
