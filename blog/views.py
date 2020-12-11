@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import PostForm, CommentsForm
 from .models import Post, Rubric
-from django.urls import reverse
 
 
 def post_list(request):

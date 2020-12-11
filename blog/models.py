@@ -27,6 +27,8 @@ class Post(models.Model):
         return self.title  # Из БД будет возвращаться тайтл экземпляра в виде строки
 
     class Meta:
+        verbose_name_plural = 'Посты'
+        verbose_name = 'Пост'
         ordering = ['-created_date', ]
 
 
