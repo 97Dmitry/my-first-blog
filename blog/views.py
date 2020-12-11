@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import PostForm, CommentsForm
 from .models import Post, Rubric
+from .control_functions import can_new_post, edit_post
 
 
 def post_list(request):
@@ -47,7 +48,8 @@ def post_detail(request, pk):
     form = CommentsForm()
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all()
+    comments = post.comments.all() # Вывод всех комментарие поста
+    # Создание комментария
     if request.method == "POST":
         if request.user.is_anonymous:
             messages.info(request, 'Авторизуйтесь, что бы добавить комментарий')
@@ -76,22 +78,26 @@ def post_new(request):
     if not request.user.is_authenticated:
         messages.info(request, 'Что бы создать новую запись, вы должны быть авторизованны')
         return redirect('sing_in')
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)  # commit равный False указывает на то, что форма готова к сохранению,
-            # но в нее нужно еще внести изменения и сохранение произойдет после повторного вызова метода save()
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            messages.success(request, 'Пост успешно создан')
-            return redirect('post_detail', pk=post.pk)
+    if can_new_post(request) == 1:
+        if request.method == "POST":
+            form = PostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)  # commit равный False указывает на то, что форма готова к сохранению,
+                # но в нее нужно еще внести изменения и сохранение произойдет после повторного вызова метода save()
+                post.author = request.user
+                post.published_date = timezone.now()
+                post.save()
+                messages.success(request, 'Пост успешно создан')
+                return redirect('post_detail', pk=post.pk)
+        else:
+            form = PostForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'blog/post_edit.html', context)
     else:
-        form = PostForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'blog/post_edit.html', context)
+        messages.info(request, 'У вас недостаточно прав для создания записи')
+        return redirect('post_list')
 
 
 def post_edit(request, pk):
@@ -100,9 +106,10 @@ def post_edit(request, pk):
         messages.info(request, 'Вы не авторизованны! Войдите в аккаунт')
         return redirect('sing_in')
     author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
-    if request.user.username != author_name.username:  # Если человек не является автором - редакция запрещена
-        messages.info(request, 'Это не ваша запись и вы не можете её редактировать')
-        return redirect('post_list')
+    if edit_post(request) != 1:
+        if request.user.username != author_name.username:  # Если человек не является автором - редакция запрещена
+            messages.info(request, 'Это не ваша запись и вы не можете её редактировать')
+            return redirect('post_list')
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":  # Если пользователь отправляет данные
         form = PostForm(request.POST, instance=post)  # В Post - форму становится возможным внести изменения и сохранить
@@ -147,9 +154,10 @@ def delete_post(request, pk):
         messages.info(request, 'Вы не авторизованны! Войдите в аккаунт')
         return redirect('sing_in')
     author_name = Post.objects.get(pk=pk).author  # Из базы данных получаем вызываемую запись и выбираем автора
-    if request.user.username != author_name.username:  # Если человек не является автором - удаление запрещено
-        messages.info(request, 'Это не ваша запись и вы не можете её удалить')
-        return redirect('post_list')
+    if edit_post(request) != 1:
+        if request.user.username != author_name.username:  # Если человек не является автором - удаление запрещено
+            messages.info(request, 'Это не ваша запись и вы не можете её удалить')
+            return redirect('post_list')
     # if request.method == "POST":
     post = Post.objects.get(pk=pk)
     post.delete()
