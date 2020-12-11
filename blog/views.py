@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import PostForm, CommentsForm
 from .models import Post, Rubric
+from django.urls import reverse
 
 
 def post_list(request):
@@ -59,7 +60,7 @@ def post_detail(request, pk):
                 comment.name = request.user
                 comment.save()
                 messages.success(request, 'Комментарий успешно добавлен')
-                redirect(f'post_detail/{pk}')
+                return redirect('post_detail', pk=pk)
     context = {
         'post': post,
         'comments': comments,
