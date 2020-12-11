@@ -49,14 +49,17 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
     if request.method == "POST":
-        form = CommentsForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = Post.objects.get(pk=pk)
-            comment.name = request.user
-            comment.save()
-            messages.success(request, 'Комментарий успешно добавлен')
-            redirect(f'post_detail/{pk}')
+        if request.user.is_anonymous:
+            messages.info(request, 'Авторизуйтесь, что бы добавить комментарий')
+        else:
+            form = CommentsForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = Post.objects.get(pk=pk)
+                comment.name = request.user
+                comment.save()
+                messages.success(request, 'Комментарий успешно добавлен')
+                redirect(f'post_detail/{pk}')
     context = {
         'post': post,
         'comments': comments,
