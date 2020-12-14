@@ -11,3 +11,4 @@ prod_settings.py
 /media/
 Pipfile
 Pipfile.lock
+identifier.sqlite
