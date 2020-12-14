@@ -92,6 +92,15 @@ body {
 
     border: 1px solid #084fdd;
     border-radius: 10px;
+
+    transition: background 0.2s linear,
+    color 0.2s;
+}
+
+.user:hover {
+    background-color: #fff;
+    text-decoration: none;
+    color: #000000;
 }
 
 /*Окно предупреждающего сообщения*/
