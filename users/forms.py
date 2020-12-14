@@ -11,7 +11,7 @@ class SingUp(UserCreationForm):
                                    regex=r'[@#$%&*]+', message='Заголовок должен состоять из букв и цифр',
                                    inverse_match=True), validators.MinLengthValidator(
                                    3, message='Длина имени меньше 3 символов'),
-                                   validators.MaxLengthValidator(25, message='Длина имени больше 25 символов')])
+                                   validators.MaxLengthValidator(16, message='Длина имени больше 25 символов')])
 
     password1 = forms.CharField(help_text='Пароль должен состоять из букв и цифр',
                                 validators=[validators.RegexValidator(
