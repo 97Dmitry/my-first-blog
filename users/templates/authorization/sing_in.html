@@ -8,6 +8,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static '/css/authorization.css' %}" type="text/css">
+
+    <link rel="icon" href="https://img.icons8.com/dusk/64/000000/edit.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://img.icons8.com/dusk/64/000000/edit.png" type="image/x-icon">
+
 </head>
 	<div class="home">
 		<a href="{% url 'home' %}">На главную</a>
@@ -55,8 +59,24 @@
 
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						<p>У вас нет аккаунта? <a href="{% url 'sing_up' %}" class="ml-2">Зарегестрироваться</a></p>
-						<p>Забыли пароль? <a href="{% url 'recovery_password' %}" class="ml-2">Восстановить</a></p>
+                        <table>
+						    <tr>
+                                <td>
+                                    У вас нет аккаунта?
+                                </td>
+                                <td>
+                                    <a href="{% url 'sing_up' %}" class="ml-2">Зарегестрироваться</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Забыли пароль?
+                                </td>
+                                <td>
+                                    <a href="{% url 'recovery_password' %}" class="ml-2">Восстановить</a>
+                                </td>
+                            </tr>
+                        </table>
 					</div>
 
 				</div>
