@@ -65,7 +65,8 @@ def post_detail(request, pk):
     context = {
         'post': post,
         'comments': comments,
-        'form': form
+        'form': form,
+        'current_pk': pk
     }
     return render(request, 'blog/post_detail.html', context)
 
@@ -168,20 +169,31 @@ def delete_post(request, pk):
 def home(request):
     return redirect('post_list')
 
-def add_rating(request):
-    form = RatingForm()
+
+def add_rating(request, pk):
+    # print(request.user.id)
+    # print(pk)
+    # print(request.POST.get('rating'))
     if request.method == 'POST':
         if request.user.is_anonymous:
-            messages.info(request, 'Авторизуйтесь, что бы добавить комментарий')
+            messages.info(request, 'Авторизуйтесь, что бы оценить пост')
         else:
+            # Need ValueRatingPost.objects.update_or_create()
+            # ValueRatingPost.objects.update_or_create(defaults={'rating_id': 4},
+            # user=User.objects.get(username='admin'),  post=Post.objects.get(id=1))
+
             form = RatingForm(request.POST)
             if form.is_valid():
-                rating = form.save(commit=False)
-                rating.user = request.user
-                rating.save()
-                return redirect('add_rating')
+                ValueRatingPost.objects.update_or_create(defaults={'rating_id': int(request.POST.get('rating'))},
+                                                         user_id=request.user.id,
+                                                         post_id=pk)
+
+                # rating = form.save(commit=False)
+                # rating.user = request.user
+                # rating.save()
+                return redirect('post_detail', pk=pk)
 
     context = {
-        'form': form
+
     }
-    return render(request, 'blog/add_rating.html', context)
+    return render(request, 'blog/add_rating.html')

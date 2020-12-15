@@ -9,9 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" class="post-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="save btn btn-success">Save</button>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input id="rating" name="rating" type="number" step="1" min="1" max="5"><label for="rating">Введите оценку от 1
+        до 5</label>
+        <button type="submit" class="save btn btn-success">Save</button>
     </form>
 {% endblock %}

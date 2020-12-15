@@ -12,6 +12,6 @@ urlpatterns = [
     path('teg/<int:rubric_id>/', views.by_rubric, name='by_rubric'),
     path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
     path('home/', views.home, name='home'),
-    path('add_rating/', views.add_rating, name='add_rating')
+    path('add_rating/<int:pk>', views.add_rating, name='add_rating')
 
 ]

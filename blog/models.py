@@ -68,6 +68,7 @@ class Comments(models.Model):
     def __str__(self):
         return f'Комментарий {self.name} к посту {self.post}'
 
+
 class Rating(models.Model):
     """ Числовые значения рейтинга """
     value = models.SmallIntegerField(verbose_name='Оценка', default=0)
@@ -92,9 +93,10 @@ class ValueRatingPost(models.Model):
         verbose_name_plural = 'Рейтинги'
         ordering = ['post']
 
-    # def sum_values_post(pk):
+    #  Нерабочий метод. Оставлен для примера
+    # def avg_values_rating(pk):
     #     a = ValueRatingPost.objects.get(post_id=pk)
-    #     b = a.aggregate(Sum('rating'))
+    #     b = a.aggregate(Avg('rating'))
 
     def __str__(self):
-        return f'{self.rating} записи {self.post}'
+        return f'Оценка {self.rating} для записи {self.post}'
