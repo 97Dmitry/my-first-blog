@@ -95,5 +95,6 @@ class Comments(models.Model):
 #     def sum_values_post(pk):
 #         a = ValueRatingPost.objects.get(post_id=pk)
 #         b = a.values('rating').aggregate(Sum('rating'))
+#
 #     def __str__(self):
 #         return f'{self.rating} - {self.post}'
