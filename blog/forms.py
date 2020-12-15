@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Comments
+from .models import Post, Comments, ValueRatingPost
 
 class PostForm(forms.ModelForm):
 
@@ -12,3 +12,10 @@ class CommentsForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ('comment', 'email')
+
+
+class RatingForm(forms.ModelForm):
+
+    class Meta:
+        model = ValueRatingPost
+        fields = ('rating', 'post')

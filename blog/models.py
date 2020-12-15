@@ -68,33 +68,33 @@ class Comments(models.Model):
     def __str__(self):
         return f'Комментарий {self.name} к посту {self.post}'
 
-# class Rating(models.Model):
-#     """ Числовые значения рейтинга """
-#     value = models.SmallIntegerField(verbose_name='Оценка', default=0)
-#
-#     def __str__(self):
-#         return f'{self.value}'
-#
-#     class Meta:
-#         verbose_name = 'Оценка'
-#         verbose_name_plural = 'Оценки'
-#         ordering = ['-value']
-#
-#
-# class ValueRatingPost(models.Model):
-#     """ Модель оценки постов """
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-#     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Оценка')
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись', )
-#
-#     class Meta:
-#         verbose_name = 'Рейтинг'
-#         verbose_name_plural = 'Рейтинги'
-#         ordering = ['post']
-#
-#     def sum_values_post(pk):
-#         a = ValueRatingPost.objects.get(post_id=pk)
-#         b = a.values('rating').aggregate(Sum('rating'))
-#
-#     def __str__(self):
-#         return f'{self.rating} - {self.post}'
+class Rating(models.Model):
+    """ Числовые значения рейтинга """
+    value = models.SmallIntegerField(verbose_name='Оценка', default=0)
+
+    def __str__(self):
+        return f'{self.value}'
+
+    class Meta:
+        verbose_name = 'Оценка'
+        verbose_name_plural = 'Оценки'
+        ordering = ['-value']
+
+
+class ValueRatingPost(models.Model):
+    """ Модель оценки постов """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Оценка')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись', )
+
+    class Meta:
+        verbose_name = 'Рейтинг'
+        verbose_name_plural = 'Рейтинги'
+        ordering = ['post']
+
+    # def sum_values_post(pk):
+    #     a = ValueRatingPost.objects.get(post_id=pk)
+    #     b = a.aggregate(Sum('rating'))
+
+    def __str__(self):
+        return f'{self.rating} записи {self.post}'

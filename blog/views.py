@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from .forms import PostForm, CommentsForm
-from .models import Post, Rubric
+from .forms import PostForm, CommentsForm, RatingForm
+from .models import Post, Rubric, ValueRatingPost
 from .control_functions import can_new_post, edit_post
 
 
@@ -167,3 +167,21 @@ def delete_post(request, pk):
 
 def home(request):
     return redirect('post_list')
+
+def add_rating(request):
+    form = RatingForm()
+    if request.method == 'POST':
+        if request.user.is_anonymous:
+            messages.info(request, 'Авторизуйтесь, что бы добавить комментарий')
+        else:
+            form = RatingForm(request.POST)
+            if form.is_valid():
+                rating = form.save(commit=False)
+                rating.user = request.user
+                rating.save()
+                return redirect('add_rating')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/add_rating.html', context)
