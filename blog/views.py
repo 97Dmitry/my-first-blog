@@ -7,6 +7,7 @@ from .forms import PostForm, CommentsForm
 from .models import Post, Rubric
 from .control_functions import can_new_post, edit_post
 
+
 def post_list(request):
     posts = Post.objects.all()
     # posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
@@ -47,7 +48,7 @@ def post_detail(request, pk):
     form = CommentsForm()
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all() # Вывод всех комментариев поста
+    comments = post.comments.all()  # Вывод всех комментариев поста
     # Создание комментария
     if request.method == "POST":
         if request.user.is_anonymous:

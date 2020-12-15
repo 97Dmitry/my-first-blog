@@ -2,11 +2,13 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.core import validators
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 
 class Post(models.Model):
+    """ Модель постов """
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
     title = models.CharField(max_length=200, verbose_name='Заглавие',
                              validators=[validators.RegexValidator(regex=r'[@#$%&*]+',
@@ -33,6 +35,7 @@ class Post(models.Model):
 
 
 class Rubric(models.Model):
+    """ Модель рубрик для постов """
     rubric = models.CharField(max_length=25, db_index=True, verbose_name='Тег')
 
     class Meta:
@@ -45,6 +48,7 @@ class Rubric(models.Model):
 
 
 class Comments(models.Model):
+    """ Комментарии к постам """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Комментатор')
     email = models.EmailField(blank=True, null=True, help_text='Не обязательное полне')
@@ -62,21 +66,10 @@ class Comments(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-         return f'Комментарий {self.name} к посту {self.post}'
-
-
-
-
-
-
-
-
-
-
-
-
+        return f'Комментарий {self.name} к посту {self.post}'
 
 # class Rating(models.Model):
+#     """ Числовые значения рейтинга """
 #     value = models.SmallIntegerField(verbose_name='Оценка', default=0)
 #
 #     def __str__(self):
@@ -84,17 +77,23 @@ class Comments(models.Model):
 #
 #     class Meta:
 #         verbose_name = 'Оценка'
-#         verbose_name_plural = 'Оценка'
-#         ordering = ['-rating']
+#         verbose_name_plural = 'Оценки'
+#         ordering = ['-value']
 #
 #
 # class ValueRatingPost(models.Model):
-#     ip = models.CharField(max_length=15, verbose_name='IP-адрес')
+#     """ Модель оценки постов """
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
 #     rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Оценка')
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись')
-#
-#     def __str__(self):
-#         return f'{self.rating} - {self.post}'
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Запись', )
 #
 #     class Meta:
 #         verbose_name = 'Рейтинг'
+#         verbose_name_plural = 'Рейтинги'
+#         ordering = ['post']
+#
+#     def sum_values_post(pk):
+#         a = ValueRatingPost.objects.get(post_id=pk)
+#         b = a.values('rating').aggregate(Sum('rating'))
+#     def __str__(self):
+#         return f'{self.rating} - {self.post}'
