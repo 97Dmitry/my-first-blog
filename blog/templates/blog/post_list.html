@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block title %}
     Posts page
@@ -12,7 +12,7 @@
     <div class="post">
         <main>
             {% for post in page %}
-                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                <h2 class="post__title"><a class="post__title__link" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <div class="media text-muted pt-3">
                     <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}">
                     <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ post.author }}</strong>
@@ -23,7 +23,7 @@
                 </div>
                 <p>Тег: <a href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
                 <div class="date">
-                    <p>Дата публикации: {{ post.created_date }}</p>
+                    <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
                 </div>
                 <details>
                     <p>{{ post.text|linebreaksbr }}</p>

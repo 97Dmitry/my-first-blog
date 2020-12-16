@@ -1,14 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 
 {% block title %}
     Добавить рейтинг
 {% endblock %}
 
-{% block h1 %}
-    Добавить рейтинг
-{% endblock %}
-
 {% block content %}
+    <h2 class="post__title">Добавить рейтинг для записи {{ this_post }}</h2>
     <form method="POST" action="">
         {% csrf_token %}
         <input id="rating" name="rating" type="number" step="1" min="1" max="5"><label for="rating">Введите оценку от 1
