@@ -174,6 +174,7 @@ def add_rating(request, pk):
     # print(request.user.id)
     # print(pk)
     # print(request.POST.get('rating'))
+    this_post = Post.objects.get(pk=pk).title
     if request.method == 'POST':
         if request.user.is_anonymous:
             messages.info(request, 'Авторизуйтесь, что бы оценить пост')
@@ -194,6 +195,6 @@ def add_rating(request, pk):
                 return redirect('post_detail', pk=pk)
 
     context = {
-
+        'this_post': this_post,
     }
-    return render(request, 'blog/add_rating.html')
+    return render(request, 'blog/add_rating.html', context)
