@@ -13,7 +13,7 @@
     <p>Всего записей в категории {{ current_rubric }}: {{ count_posts }} </p>
         {% for post in posts %}
             <div>
-                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                <h2 class="post__title"><a class="post__title__link" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <details>
                     <p>{{ post.text }}</p>
                 </details>

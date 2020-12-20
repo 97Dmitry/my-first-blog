@@ -11,10 +11,16 @@ body {
     background-color: #28282a;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
 *,
 *:before,
 *:after {
     box-sizing: border-box;
+    border: 0;
+    margin: 0;
 }
 
 /* Container */
@@ -93,14 +99,17 @@ body {
 }
 
 .container--content {
+    position: relative;
+
     background-color: #343437;
     border-radius: 20px;
-    padding-bottom: 1px;
+    padding-bottom: 10px;
 }
 
 .new_post {
     position: absolute;
-    margin-left: 1081px;
+    right: 0;
+    margin-right: 10px;
 }
 
 .media{
