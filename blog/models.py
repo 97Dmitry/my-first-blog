@@ -93,10 +93,23 @@ class ValueRatingPost(models.Model):
         verbose_name_plural = 'Рейтинги'
         ordering = ['post']
 
-    #  Нерабочий метод. Оставлен для примера
-    # def avg_values_rating(pk):
-    #     a = ValueRatingPost.objects.get(post_id=pk)
-    #     b = a.aggregate(Avg('rating'))
+    # Подсчет среднего рейтинга
+    def avg_values_rating(pk):
+        """ Возвращает словарь из среднего рейтинга и количества проголосовавших"""
+        b = ValueRatingPost.objects.filter(post_id=pk)
+        if len(b) == 0:
+            return {
+                'avg': 0,
+                'voted': 0
+            }
+        else:
+            value = 0
+            for i in b:
+                value += int(i.rating.value)
+            return {
+                'avg': (value / len(b)),
+                'voted': len(b)
+            }
 
     def __str__(self):
         return f'Оценка {self.rating} для записи {self.post}'

@@ -10,6 +10,7 @@
         <div class="date">
             <p class="post__published_date">Дата публикации: {{ post.published_date }}</p>
         </div>
+        <p> Рейтинг записи: {{ rating }} из {{ voted }} проголосовавших </p>
     {% endif %}
     <div class="media text-muted pt-3">
         <img class="mr-2 rounded" style="width: 48px; height: 48px;" src="{{ post.author.profile.picture.url }}">

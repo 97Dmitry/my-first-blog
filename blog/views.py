@@ -49,6 +49,8 @@ def post_detail(request, pk):
     Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()  # Вывод всех комментариев поста
+    # Сумма рейтинга
+    rating_voted = ValueRatingPost.avg_values_rating(pk)
     # Создание комментария
     if request.method == "POST":
         if request.user.is_anonymous:
@@ -66,7 +68,9 @@ def post_detail(request, pk):
         'post': post,
         'comments': comments,
         'form': form,
-        'current_pk': pk
+        'current_pk': pk,
+        'rating': rating_voted.get('avg'),
+        'voted': rating_voted.get('voted')
     }
     return render(request, 'blog/post_detail.html', context)
 
