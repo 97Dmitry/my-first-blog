@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'snowpenguin.django.recaptcha3',
 
 ]
 
@@ -145,3 +146,9 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 # URL
 LOGIN_URL = 'sing_in'
+
+#reCaptcha
+RECAPTCHA_PRIVATE_KEY = PRIVATE_KEY
+RECAPTCHA_PUBLIC_KEY = PUBLIC_KEY
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5

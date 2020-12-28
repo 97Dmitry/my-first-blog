@@ -2,10 +2,12 @@ from django import forms
 from django.core import validators
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
 from .models import Profile
 
 
 class SingUp(UserCreationForm):
+    captcha = ReCaptchaField()
     username = forms.CharField(help_text='Имя аккаунта может содержать только буквы, цифры и знаки подчеркивания',
                                validators=[validators.RegexValidator(
                                    regex=r'[@#$%&*]+', message='Заголовок должен состоять из букв и цифр',
@@ -29,7 +31,7 @@ class SingUp(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'captcha')
 
 
 class ChangePassword(PasswordChangeForm):

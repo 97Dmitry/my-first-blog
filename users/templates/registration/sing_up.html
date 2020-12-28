@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% load static %}
-<html>
+{% load static recaptcha3 %}
+<html lang="ru">
 
 <head>
 	<title>Регистрация</title>
@@ -12,6 +12,8 @@
     <link rel="icon" href="https://img.icons8.com/dusk/64/000000/edit.png" type="image/x-icon">
     <link rel="shortcut icon" href="https://img.icons8.com/dusk/64/000000/edit.png" type="image/x-icon">
 
+    {% recaptcha_init %}
+    {% recaptcha_ready action_name='homepage' %}
 </head>
 	<div class="home">
         <a href="{% url 'home' %}">На главную</a>
@@ -61,7 +63,7 @@
 							</div>
                             {{ form.password2 }}
 						</div>
-
+                        {{ form.captcha }}
 				   		<div class="d-flex justify-content-center mt-10 login_container">
 				 			<input class="btn login_btn" type="submit" value="Зарегестрироваться">
 				   		</div>
