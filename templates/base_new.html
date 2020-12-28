@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?
         family=Source+Sans+Pro:wght@200;400;700;900&
         family=Open+Sans:wght@700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" type="text/html">
     <!-- Static -->
     <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
 
@@ -84,6 +84,9 @@
         </div>
     </div>
 </div>
+{% block js_link %}
+
+{% endblock %}
 </body>
 
 </html>
