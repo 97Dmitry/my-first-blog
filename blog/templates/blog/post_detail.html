@@ -1,5 +1,10 @@
 {% extends 'base_new.html' %}
-{% load static %}
+{% load static recaptcha3 %}
+
+{% block head %}
+    {% recaptcha_init %}
+    {% recaptcha_ready action_name='homepage' %}
+{% endblock %}
 
 {% block title %}
     {{ post.title }}
@@ -49,6 +54,7 @@
                 <p> Комментарий: <br/>{{ form.comment }} <br/> {{ form.comment.help_text }} </p>
                 <p> Email: <br/>{{ form.email }} </p>
                 <button type="submit" class="save btn btn-success">Создать</button>
+                {{ form.captcha }}
             </form>
         </details>
         <hr/>
