@@ -68,6 +68,8 @@
 </header>
 
 <div class="content">
+    {% block tags %}
+    {% endblock %}
     <div class="container container--content">
             <p class="new_post"><a href="{% url 'post_new' %}">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-text" fill="currentColor"

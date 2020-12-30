@@ -1,4 +1,5 @@
 {% extends 'base_new.html' %}
+{% load static %}
 
 {% block title %}
     Posts page
@@ -7,6 +8,17 @@
 {% block h1 %}
     Здесь будет информация и приветствие
 {% endblock %}
+{% block tags %}
+    <div class="container container__tags">
+        <p class="tags__title">Навигация по тегам</p>
+        {% for tag in tags %}
+            <ul>
+                <li><a href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
+            </ul>
+        {% endfor %}
+
+    </div>
+{% endblock %}
 {% block content %}
     <p>Всего записей: {{ count_posts }}</p>
     <div class="post">
@@ -14,7 +26,7 @@
             {% for post in page %}
                 <h2 class="post__title"><a class="post__title__link" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <div class="media text-muted pt-3">
-                    <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}">
+                    <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}" alt="">
                     <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ post.author }}</strong>
                         {% for i in post.author.profile.user_rank.all %}
                             {{ i }},
@@ -55,4 +67,8 @@
         </nav>
         <hr/>
     </div>
+{% endblock %}
+
+{% block js_link %}
+    <script type="text/javascript" src={% static "js/fix_for_tags-navigation.js" %}></script>
 {% endblock %}

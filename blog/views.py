@@ -10,6 +10,7 @@ from .control_functions import can_new_post, edit_post
 
 def post_list(request):
     posts = Post.objects.all()
+    tags = Rubric.objects.all()
     # posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
     count_posts = Post.objects.values('title').aggregate(Count('title'))
     paginator = Paginator(posts, 2)  # делим все полученные посты по 2
@@ -34,7 +35,8 @@ def post_list(request):
         'page': page,
         'prev_url': prev_url,
         'next_url': next_url,
-        'count_posts': count_posts.get('title__count')
+        'count_posts': count_posts.get('title__count'),
+        'tags': tags
     }
     return render(request, 'blog/post_list.html', context)
 

@@ -29,7 +29,7 @@ p {
 /* Container */
 .container {
     width: 100%;
-    max-width: 70%;
+
     margin: 0 auto;
 }
 
@@ -93,8 +93,7 @@ p {
 
 /* Content */
 .content {
-    /*max-height: 100%;*/
-    /*min-height: 969px;*/
+    display: flex;
     padding-top: 100px;
     /*background: url("../../../media/space_bg.jpg") no-repeat;*/
     /*background-size: cover;*/
@@ -106,7 +105,26 @@ p {
 
     background-color: #343437;
     border-radius: 20px;
+    padding: 10px 10px;
+    max-width: 70%;
+    margin: 0 auto;
+
+}
+
+.container__tags {
+    background-color: #343437;
+    border-radius: 20px;
     padding-bottom: 10px;
+    max-width: 250px;
+
+    margin-right: 0;
+}
+
+.tags__title {
+    font-weight: 700;
+    font-size: 20px;
+
+    margin: 5px 10px;
 }
 
 .new_post {
