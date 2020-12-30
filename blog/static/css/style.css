@@ -127,6 +127,16 @@ p {
     margin: 5px 10px;
 }
 
+.tags__text {
+        color: #1aa6e7;
+    text-decoration: none;
+    transition: color 0.2s linear;
+}
+
+.tags__text:hover {
+    color: #5E5694;
+}
+
 .new_post {
     max-width: 40%;
     position: absolute;

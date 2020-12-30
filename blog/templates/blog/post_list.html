@@ -13,7 +13,7 @@
         <p class="tags__title">Навигация по тегам</p>
         {% for tag in tags %}
             <ul>
-                <li><a href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
+                <li><a class="tags__text" href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
             </ul>
         {% endfor %}
 
@@ -33,7 +33,7 @@
                         {% endfor %}
                     </p>
                 </div>
-                <p>Тег: <a href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
+                <p>Тег: <a class="tags__text" href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
                 <div class="date">
                     <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
                 </div>
