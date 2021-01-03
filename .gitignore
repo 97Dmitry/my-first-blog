@@ -12,3 +12,4 @@ prod_settings.py
 Pipfile
 Pipfile.lock
 identifier.sqlite
+.vs

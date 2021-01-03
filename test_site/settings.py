@@ -10,9 +10,9 @@ from pathlib import Path
 import os
 from django.conf import settings
 from prod_settings import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -25,7 +25,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,9 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'chat.apps.ChatConfig',
     'snowpenguin.django.recaptcha3',
+    'channels',
 
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgiref.inmemory.ChannelLayer',
+        'ROUTING': 'myproj.routing.channel_routing',
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,7 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'test_site.wsgi.application'
-
+ASGI_APPLICATION = "test_site.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -83,7 +91,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -102,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -132,8 +138,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-#SMTP Configurations
+# SMTP Configurations
 DEFAULT_FROM_EMAIL = 'admin@mail.com'
 SERVER_EMAIL = 'admin@mail.com'
 if settings.DEBUG:
@@ -147,7 +152,7 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 # URL
 LOGIN_URL = 'sing_in'
 
-#reCaptcha
+# reCaptcha
 RECAPTCHA_PRIVATE_KEY = PRIVATE_KEY
 RECAPTCHA_PUBLIC_KEY = PUBLIC_KEY
 RECAPTCHA_DEFAULT_ACTION = 'generic'
