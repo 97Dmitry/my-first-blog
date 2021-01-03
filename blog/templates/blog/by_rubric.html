@@ -14,10 +14,9 @@
         <p class="tags__title">Навигация по тегам</p>
         {% for tag in rubrics %}
             <ul>
-                <li><a href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
+                <li><a class="tags__text" href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
             </ul>
         {% endfor %}
-
     </div>
 {% endblock %}
 

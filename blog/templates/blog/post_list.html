@@ -8,6 +8,7 @@
 {% block h1 %}
     Здесь будет информация и приветствие
 {% endblock %}
+
 {% block tags %}
     <div class="container container__tags">
         <p class="tags__title">Навигация по тегам</p>
@@ -16,7 +17,6 @@
                 <li><a class="tags__text" href="{% url 'by_rubric' tag.pk %}">{{ tag }}</a></li>
             </ul>
         {% endfor %}
-
     </div>
 {% endblock %}
 {% block content %}
