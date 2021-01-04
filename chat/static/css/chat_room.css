@@ -1,0 +1,13 @@
+.chat {
+    height: 350px;
+    max-height: 750px;
+    width: 55%;
+    margin: 10px;
+    background: url("../../../media/background-chat.jpg") no-repeat;
+    background-size: cover;
+}
+
+.chat_enter {
+    width: 55%;
+    margin: 10px;
+}

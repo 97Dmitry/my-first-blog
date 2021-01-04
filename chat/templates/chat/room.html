@@ -1,0 +1,23 @@
+{% extends 'base_new.html' %}
+{% load static %}
+
+{% block head_sample %}
+    <link rel="stylesheet" href="{% static '/css/chat_room.css' %}" type="text/css">
+{% endblock %}
+
+{% block title %}
+    Chat room
+{% endblock %}
+
+{% block content %}
+    <textarea class="chat" id="chat-log"></textarea>
+    <br>
+    <input class="chat_enter" id="chat-message-input" type="text" size="75">
+    <br>
+    <input class="btn btn-success" id="chat-message-submit" type="button" value="Send">
+    {{ room_name|json_script:"room-name" }}
+{% endblock %}
+
+{% block js_link %}
+    <script src="{% static 'js/chat_room.js' %}"></script>
+{% endblock %}

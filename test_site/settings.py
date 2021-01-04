@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -41,13 +41,6 @@ INSTALLED_APPS = [
     'channels',
 
 ]
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'asgiref.inmemory.ChannelLayer',
-        'ROUTING': 'myproj.routing.channel_routing',
-    },
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,8 +72,18 @@ TEMPLATES = [
     },
 ]
 
+# Channels
 WSGI_APPLICATION = 'test_site.wsgi.application'
 ASGI_APPLICATION = "test_site.asgi.application"
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
