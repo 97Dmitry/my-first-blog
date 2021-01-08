@@ -94,6 +94,8 @@ p {
 /* Content */
 .content {
     display: flex;
+    align-content: center;
+
     padding-top: 100px;
     /*background: url("../../../media/space_bg.jpg") no-repeat;*/
     /*background-size: cover;*/
@@ -106,18 +108,45 @@ p {
     background-color: #343437;
     border-radius: 20px;
     padding: 10px 10px;
-    max-width: 70%;
+    max-width: 80%;
     margin: 0 auto;
 
+}
+
+.container_nav {
+    display: flex;
+    flex-direction: column;
 }
 
 .container__tags {
     background-color: #343437;
     border-radius: 20px;
     padding-bottom: 10px;
-    max-width: 250px;
+    width: 250px;
 
     margin-right: 0;
+}
+
+.container__chat_link {
+    background-color: #343437;
+    border-radius: 20px;
+    padding-bottom: 10px;
+    max-width: 250px;
+
+    margin-top: 5px;
+
+    height: 30px;
+
+    text-align: center;
+}
+
+.chat__link {
+    font-weight: 700;
+    font-size: 20px;
+
+    color: #1aa6e7;
+    text-decoration: none;
+    transition: color 0.2s linear;
 }
 
 .tags__title {
@@ -206,8 +235,17 @@ p {
     color: black;
 }
 
+/*Classes for JS*/
 
+.fixed {
+	position: fixed;
+	z-index: 1;
+	top: 0;
+}
 
+.Left {
+    left: 250px;
+}
 
 
 
