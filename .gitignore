@@ -6,10 +6,10 @@ db.sqlite3
 /static
 .DS_Store
 .idea
-requirement.txt
 prod_settings.py
 /media/
 Pipfile
 Pipfile.lock
 identifier.sqlite
 .vs
+.env
