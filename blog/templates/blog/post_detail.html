@@ -12,14 +12,14 @@
 
 {% block content %}
     <h2 class="post__title">{{ post.title }}</h2>
-    {% if post.published_date %}
+    {% if post.created_date %}
         <div class="date">
-            <p class="post__published_date">Дата публикации: {{ post.published_date }}</p>
+            <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
         </div>
-        <p> Рейтинг записи: {{ rating }} из {{ voted }} проголосовавших </p>
     {% endif %}
+    <p> Рейтинг записи: {{ rating }} из {{ voted }} проголосовавших </p>
     <div class="media text-muted pt-3">
-        <img class="mr-2 rounded" style="width: 48px; height: 48px;" src="{{ post.author.profile.picture.url }}">
+        <img class="mr-2 rounded" style="width: 48px; height: 48px;" src="{{ post.author.profile.picture.url }}" alt="">
         <p class="mb-1 ml-1 middle lh-sm"><strong class="d-block">@{{ post.author }}</strong>Автор записи</p>
     </div>
     <p>Тег: {{ post.rubric }}</p>
