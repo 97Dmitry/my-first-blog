@@ -44,7 +44,7 @@
                 </div>
                 <details>
                     <summary>Развернуть</summary>
-                    <p>{{ post.text|linebreaksbr }}</p>
+                    {% autoescape off %} <p>{{ post.text|linebreaksbr }}</p> {% endautoescape %}
                 </details>
                 <hr/>
             {% endfor %}

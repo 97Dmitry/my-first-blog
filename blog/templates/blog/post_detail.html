@@ -25,7 +25,7 @@
     <p>Тег: {{ post.rubric }}</p>
     <div class="text">
         <hr/>
-        <p>{{ post.text|linebreaksbr }}</p>
+        {% autoescape off %} <p>{{ post.text|linebreaksbr }}</p> {% endautoescape %}
         <hr/>
         <h5>Комментарии:</h5>
         <details>

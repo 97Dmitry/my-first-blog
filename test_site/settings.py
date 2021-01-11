@@ -10,6 +10,7 @@ from pathlib import Path
 import os
 from django.conf import settings
 from prod_settings import *
+from ck_settings import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'channels',
     'django.contrib.postgres',
     'rest_framework',
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
 
@@ -89,23 +92,23 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
-        'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
-        'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
-        'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
-        'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
-        'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
+#         'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
+#         'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
+#         'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
+#         'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
+#         'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -172,3 +175,8 @@ RECAPTCHA_PRIVATE_KEY = PRIVATE_KEY  # os.getenv("PRIVATE_KEY")
 RECAPTCHA_PUBLIC_KEY = PUBLIC_KEY  # os.getenv("PUBLIC_KEY")
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+# ckeditor
+
+CKEDITOR_UPLOAD_PATH = CKEDITOR_UPLOAD_PATH
+CKEDITOR_CONFIGS = CKEDITOR_CONFIGS

@@ -27,7 +27,7 @@
             <div>
                 <h2 class="post__title"><a class="post__title__link" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <details>
-                    <p>{{ post.text }}</p>
+                    {% autoescape off %} <p>{{ post.text|linebreaksbr }}</p> {% endautoescape %}
                 </details>
                 {% if post.published_date %}
                     <div class="date">

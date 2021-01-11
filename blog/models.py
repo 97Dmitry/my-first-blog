@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.core import validators
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -15,8 +16,8 @@ class Post(models.Model):
                                                                    message='Заголовок должен состоять из букв и цифр',
                                                                    inverse_match=True),
                                          validators.MinLengthValidator(5, message='Длина заголовка меньше 5 символов')])
-    text = models.TextField(verbose_name='Текст',
-                            validators=[validators.MinLengthValidator(120, message='Длина текста меньше 150 символов')])
+    text = RichTextField(verbose_name='Текст',
+                         validators=[validators.MinLengthValidator(120, message='Длина текста меньше 150 символов')])
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Дата публикации')
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.SET_NULL, verbose_name='Тег')
