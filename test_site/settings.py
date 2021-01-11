@@ -92,23 +92,23 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
-#         'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
-#         'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
-#         'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
-#         'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
-#         'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
+        'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
+        'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
+        'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
+        'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
+        'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
