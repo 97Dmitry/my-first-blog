@@ -128,7 +128,7 @@ export default {
       this.Posts = await fetch(
           `${this.$store.getters.getServerUrl}/post_list`
       ).then(response => response.json())
-      // console.log(this.Posts)
+      console.log(this.Posts)
     }
   }
 }

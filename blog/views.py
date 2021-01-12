@@ -8,8 +8,7 @@ from .models import Post, Rubric, ValueRatingPost
 from .control_functions import can_new_post, edit_post
 
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import PostListSerializer, TagsSerializer
+from .serializers import *
 from rest_framework import viewsets
 
 
@@ -51,24 +50,31 @@ def post_list(request):
 #     model = Post
 
 # post_list REST
-class PostList(viewsets.ViewSet):
-
-    def list(self, request):
-        queryset = Post.objects.all()
-        serializer = PostListSerializer(queryset, many=True)
-        return Response(serializer.data)
+class PostList(viewsets.ModelViewSet):
+    # def list(self, request):
+    serializer_class = PostListSerializer
+    queryset = Post.objects.all()
+    # serializer = PostListSerializer(queryset, many=True)
+    # return Response(serializer.data)
     # def get(self, request):
-        # rubrics = Rubric.objects.all()
-        # posts_serialize = PostListSerializer(posts, many=True)
-        # tags_serialize = TagsSerializer(rubrics, many=True)
-        # return Response({"posts": posts_serialize.data})
+    # rubrics = Rubric.objects.all()
+    # posts_serialize = PostListSerializer(posts, many=True)
+    # tags_serialize = TagsSerializer(rubrics, many=True)
+    # return Response({"posts": posts_serialize.data})
 
-    def current(self, request, pk=None):
-        queryset = Post.objects.all()
-        post = get_object_or_404(queryset, pk=pk)
-        serializer = PostListSerializer(post)
-        return Response(serializer.data)
+    # def current(self, request, pk=None):
+    #     queryset = Post.objects.all()
+    #     post = get_object_or_404(queryset, pk=pk)
+    #     serializer = PostListSerializer(post)
+    #     return Response(serializer.data)
+    #
+    # def create(self, ):
+    #     pass
 
+
+class CommentList(viewsets.ModelViewSet):
+    serializer_class = CommentListSerializer
+    queryset = Comments.objects.all()
 
 
 def post_detail(request, pk):
@@ -82,7 +88,7 @@ def post_detail(request, pk):
     if request.method == "POST":
         if request.user.is_anonymous:
             messages.info(request, 'Авторизуйтесь, что бы добавить комментарий')
-        else:
+        if request.user.is_authenticated:
             form = CommentsForm(request.POST)
             if form.is_valid():
                 comment = form.save(commit=False)
@@ -91,6 +97,9 @@ def post_detail(request, pk):
                 comment.save()
                 messages.success(request, 'Комментарий успешно добавлен')
                 return redirect('post_detail', pk=pk)
+        else:
+            messages.info(request,
+                          'Авторизуйтесь, что бы добавить комментарий. Если авторизованны, сообщите в поддержку')
     context = {
         'post': post,
         'comments': comments,

@@ -1,5 +1,12 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 from . import views
+
+router = DefaultRouter()
+
+router.register(r'api/post_list', views.PostList, basename='rest_post_list')
+router.register(r'api/comment_list', views.CommentList, basename='rest_comment_list')
+
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
@@ -16,7 +23,9 @@ urlpatterns = [
 
 
     # For REST need use 'api/...'
-    path('api/post_list', views.PostList.as_view({'get': 'list'})),
-    path('api/post_list/<int:pk>', views.PostList.as_view({'get': 'current'})),
+    # path('api/post_list', views.PostList.as_view({'get': 'list'})),
+    # path('api/post_list/<int:pk>', views.PostList.as_view({'get': 'current'})),
 
-]
+] + router.urls
+
+
