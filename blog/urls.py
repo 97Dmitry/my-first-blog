@@ -12,6 +12,11 @@ urlpatterns = [
     path('teg/<int:rubric_id>/', views.by_rubric, name='by_rubric'),
     path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
     path('home/', views.home, name='home'),
-    path('add_rating/<int:pk>', views.add_rating, name='add_rating')
+    path('add_rating/<int:pk>', views.add_rating, name='add_rating'),
+
+
+    # For REST need use 'api/...'
+    path('api/post_list', views.PostList.as_view({'get': 'list'})),
+    path('api/post_list/<int:pk>', views.PostList.as_view({'get': 'current'})),
 
 ]

@@ -7,6 +7,11 @@ from .forms import PostForm, CommentsForm, RatingForm
 from .models import Post, Rubric, ValueRatingPost
 from .control_functions import can_new_post, edit_post
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import PostListSerializer, TagsSerializer
+from rest_framework import viewsets
+
 
 def post_list(request):
     posts = Post.objects.all()
@@ -44,6 +49,26 @@ def post_list(request):
 # class ContactList(ListView): Пагинация встроенна в ListView
 #     paginate_by = 2
 #     model = Post
+
+# post_list REST
+class PostList(viewsets.ViewSet):
+
+    def list(self, request):
+        queryset = Post.objects.all()
+        serializer = PostListSerializer(queryset, many=True)
+        return Response(serializer.data)
+    # def get(self, request):
+        # rubrics = Rubric.objects.all()
+        # posts_serialize = PostListSerializer(posts, many=True)
+        # tags_serialize = TagsSerializer(rubrics, many=True)
+        # return Response({"posts": posts_serialize.data})
+
+    def current(self, request, pk=None):
+        queryset = Post.objects.all()
+        post = get_object_or_404(queryset, pk=pk)
+        serializer = PostListSerializer(post)
+        return Response(serializer.data)
+
 
 
 def post_detail(request, pk):

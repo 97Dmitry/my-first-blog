@@ -27,9 +27,10 @@
       <div class="container__tags">
         <p class="tags__title">Навигация по тегам</p>
         <!--        {% for tag in tags %}-->
-        <ul>
-          <li><a class="tags__text" href="#">#tag#</a></li>
-        </ul>
+<!--        <div v-for="tag in Posts.tags" :key="tag.id"></div>-->
+          <ul>
+            <li><a class="tags__text" href="#">tag</a></li>
+          </ul>
         <!--        {% endfor %}-->
       </div>
       <div class="container__chat_link">
@@ -50,27 +51,27 @@
         </a> <span> &lt;- для создания нового поста, нажмите сюда </span>
       </p>
       <!--      {% block content %}-->
-      <p>Всего записей: #count_posts#</p>
-      <div class="post">
+      <p>Всего записей: </p>
+      <div v-for="post in Posts" :key="post.id" class="post">
         <main>
 <!--          {% for post in page %}-->
-          <h2 class="post__title"><a class="post__title__link" href="#">#post.title#</a></h2>
+          <h2 class="post__title"><a class="post__title__link" href="#">{{post.title}}</a></h2>
           <div class="media text-muted pt-3">
             <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="#post.author.profile.picture.url#"
                  alt="">
-            <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@#post.author#</strong>
+            <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">{{post.author}}</strong>
 <!--              {% for i in post.author.profile.user_rank.all %}-->
 <!--              {{ i }},-->
 <!--              {% endfor %}-->
             </p>
           </div>
-          <p>Тег: <a class="tags__text" href="#">#post.rubric#</a></p>
+          <p>Тег: <a class="tags__text" href="#">{{post.rubric}}</a></p>
           <div class="date">
-            <p class="post__published_date">Дата публикации: #post.created_date#</p>
+            <p class="post__published_date">Дата публикации: {{post.created_date}}</p>
           </div>
           <details>
             <summary>Развернуть</summary>
-            {% autoescape off %} <p>#post.text|linebreaksbr#</p> {% endautoescape %}
+            <p>{{post.text}}</p>
           </details>
           <hr/>
 <!--          {% endfor %}-->
@@ -110,7 +111,26 @@
 
 export default {
   name: 'Home',
-  components: {}
+  data() {
+    return {
+      Posts: [],
+      Tags: [],
+
+    }
+  },
+  components: {},
+  created() {
+    this.loadListPosts()
+
+  },
+  methods: {
+    async loadListPosts() {
+      this.Posts = await fetch(
+          `${this.$store.getters.getServerUrl}/post_list`
+      ).then(response => response.json())
+      // console.log(this.Posts)
+    }
+  }
 }
 </script>
 
