@@ -27,10 +27,11 @@
       <div class="container__tags">
         <p class="tags__title">Навигация по тегам</p>
         <!--        {% for tag in tags %}-->
-<!--        <div v-for="tag in Posts.tags" :key="tag.id"></div>-->
+        <div v-for="tag in Tags" :key="tag.id">
           <ul>
-            <li><a class="tags__text" href="#">tag</a></li>
+            <li><a class="tags__text" href="#">{{ tag.rubric }}</a></li>
           </ul>
+        </div>
         <!--        {% endfor %}-->
       </div>
       <div class="container__chat_link">
@@ -51,20 +52,24 @@
         </a> <span> &lt;- для создания нового поста, нажмите сюда </span>
       </p>
       <!--      {% block content %}-->
-      <p>Всего записей: </p>
+      <p>Всего записей: {{ Posts.length }}</p>
       <div v-for="post in Posts" :key="post.id" class="post">
         <main>
 <!--          {% for post in page %}-->
           <h2 class="post__title"><a class="post__title__link" href="#">{{post.title}}</a></h2>
+
           <div class="media text-muted pt-3">
-            <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="#post.author.profile.picture.url#"
-                 alt="">
-            <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">{{post.author}}</strong>
-<!--              {% for i in post.author.profile.user_rank.all %}-->
-<!--              {{ i }},-->
-<!--              {% endfor %}-->
-            </p>
+            <img class="mr-2 rounded" style="width: 58px; height: 58px;"
+                 :src="Profile[CheckIndex(Profile, post)].picture" alt="">
+            <div class="mb-1">
+              <p><strong class="d-block">{{post.author}}</strong>
+                <span v-for="rank in Profile[CheckIndex(Profile, post)].user_rank" :key="rank.id">
+                  <span> {{ rank }}, </span>
+                </span>
+              </p>
+            </div>
           </div>
+
           <p>Тег: <a class="tags__text" href="#">{{post.rubric}}</a></p>
           <div class="date">
             <p class="post__published_date">Дата публикации: {{post.created_date}}</p>
@@ -76,6 +81,7 @@
           <hr/>
 <!--          {% endfor %}-->
         </main>
+    </div>
         <nav aria-label="...">
           <ul class="pagination">
             <li class="page-item {% if not prev_url %} disabled {% endif %}">
@@ -98,12 +104,12 @@
           </ul>
         </nav>
         <hr/>
-      </div>
-      <!--      {% endblock %}-->
       <div class="link">
         <p>Для подробной информации, обращайтесь по адресу: <a href="#">link</a></p>
       </div>
     </div>
+      <!--      {% endblock %}-->
+
   </div>
 </template>
 
@@ -115,12 +121,16 @@ export default {
     return {
       Posts: [],
       Tags: [],
+      Profile: [],
 
     }
   },
   components: {},
   created() {
-    this.loadListPosts()
+    this.loadListPosts();
+    this.loadTagsPosts();
+    this.loadProfilePosts();
+
 
   },
   methods: {
@@ -128,13 +138,49 @@ export default {
       this.Posts = await fetch(
           `${this.$store.getters.getServerUrl}/post_list`
       ).then(response => response.json())
-      console.log(this.Posts)
-    }
+      // console.log(this.Posts)
+    },
+
+    async loadTagsPosts() {
+      this.Tags = await fetch(
+          `${this.$store.getters.getServerUrl}/tags_list`
+      ).then(response => response.json())
+      // console.log(this.Tags)
+    },
+
+    async loadProfilePosts() {
+      this.Profile = await fetch(
+          `${this.$store.getters.getServerUrl}/profile_list`
+      ).then(response => response.json())
+      // console.log(this.Profile)
+    },
+
+    CheckIndex(profile, post) {
+      let a = 0
+      profile.findIndex(function (element, index) {
+        if (element.user === post.author) {
+          return a = index
+        }
+      })
+      return a
+    },
+
+
   }
+
 }
 </script>
 
 <style>
+.d-block {
+  font-size: 18px;
+  border-bottom: 1px solid white;
+  margin-bottom: 4px;
+}
+
+.container--content {
+  margin-left: 5px;
+}
 
 
 </style>

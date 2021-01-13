@@ -8,6 +8,10 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
+from rest_framework.response import Response
+from .serializers import *
+from rest_framework import viewsets
+
 
 # Create your views here.
 
@@ -116,3 +120,11 @@ class PasswordRecoveryConfirm(PasswordResetConfirmView):
 
 class PasswordRecoverComplete(PasswordResetCompleteView):
     template_name = 'authorization/password_recovery_complete.html'
+
+
+# REST
+
+class ProfileSerializer(viewsets.ModelViewSet):
+    # def list(self, request):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()

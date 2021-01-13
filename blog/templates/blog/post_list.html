@@ -31,12 +31,14 @@
             {% for post in page %}
                 <h2 class="post__title"><a class="post__title__link" href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                 <div class="media text-muted pt-3">
-                    <img class="mr-2 rounded" style="width: 38px; height: 38px;" src="{{ post.author.profile.picture.url }}" alt="">
-                    <p class="mb-1 ml-1 small lh-sm"><strong class="d-block">@{{ post.author }}</strong>
-                        {% for i in post.author.profile.user_rank.all %}
-                            {{ i }},
-                        {% endfor %}
-                    </p>
+                    <img class="mr-2 rounded" style="width: 58px; height: 58px;" src="{{ post.author.profile.picture.url }}" alt="">
+                    <div class="mb-1">
+                        <p><strong class="d-block">@{{ post.author }}</strong>
+                            {% for i in post.author.profile.user_rank.all %}
+                                <span >{{ i }}, </span>
+                            {% endfor %}
+                        </p>
+                    </div>
                 </div>
                 <p>Тег: <a class="tags__text" href="{% url 'by_rubric' post.rubric.pk %}">{{ post.rubric }}</a></p>
                 <div class="date">

@@ -2,12 +2,12 @@ from rest_framework import serializers
 from .models import Post, Rubric, Comments
 
 
-class TagsSerializer(serializers.ModelSerializer):
+class TagsListSerializer(serializers.ModelSerializer):
     """Список тегов"""
 
     class Meta:
         model = Rubric
-        fields = ("rubric")
+        fields = ("__all__")
 
 
 class CommentListSerializer(serializers.ModelSerializer):

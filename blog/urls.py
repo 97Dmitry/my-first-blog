@@ -6,6 +6,7 @@ router = DefaultRouter()
 
 router.register(r'api/post_list', views.PostList, basename='rest_post_list')
 router.register(r'api/comment_list', views.CommentList, basename='rest_comment_list')
+router.register(r'api/tags_list', views.TagsList, basename='rest_tags_list')
 
 
 urlpatterns = [

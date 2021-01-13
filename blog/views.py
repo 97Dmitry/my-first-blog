@@ -49,7 +49,7 @@ def post_list(request):
 #     paginate_by = 2
 #     model = Post
 
-# post_list REST
+# REST
 class PostList(viewsets.ModelViewSet):
     # def list(self, request):
     serializer_class = PostListSerializer
@@ -75,6 +75,13 @@ class PostList(viewsets.ModelViewSet):
 class CommentList(viewsets.ModelViewSet):
     serializer_class = CommentListSerializer
     queryset = Comments.objects.all()
+
+
+class TagsList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Rubric.objects.all()
+        serializer = TagsListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 def post_detail(request, pk):
