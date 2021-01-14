@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Rubric, Comments
+from .models import Post, Rubric, Comments, ValueRatingPost
 
 
 class TagsListSerializer(serializers.ModelSerializer):
@@ -30,3 +30,15 @@ class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ("title", "author", "text", "created_date", "rubric", "comments", "id")
+
+
+class RatingListSerializer(serializers.ModelSerializer):
+    """Оценка поста"""
+
+    user = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    rating = serializers.SlugRelatedField(slug_field="value", read_only=True)
+    # post = serializers.SlugRelatedField(slug_field="title", read_only=True)
+
+    class Meta:
+        model = ValueRatingPost
+        fields = ("user", "rating", "post")

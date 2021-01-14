@@ -50,10 +50,16 @@ def post_list(request):
 #     model = Post
 
 # REST
-class PostList(viewsets.ModelViewSet):
-    # def list(self, request):
-    serializer_class = PostListSerializer
-    queryset = Post.objects.all()
+class PostList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Post.objects.all()
+        serializer = PostListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk=None):
+        queryset = Post.objects.get(pk=pk)
+        serializer = PostListSerializer(queryset)
+        return Response(serializer.data)
     # serializer = PostListSerializer(queryset, many=True)
     # return Response(serializer.data)
     # def get(self, request):
@@ -81,6 +87,13 @@ class TagsList(viewsets.ViewSet):
     def list(self, request):
         queryset = Rubric.objects.all()
         serializer = TagsListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class RatingList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = ValueRatingPost.objects.all()
+        serializer = RatingListSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
