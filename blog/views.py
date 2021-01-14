@@ -78,9 +78,16 @@ class PostList(viewsets.ViewSet):
     #     pass
 
 
-class CommentList(viewsets.ModelViewSet):
-    serializer_class = CommentListSerializer
-    queryset = Comments.objects.all()
+class CommentList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Comments.objects.all()
+        serializer = CommentListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def comment_post(self, request, id=None):
+        queryset = Comments.objects.filter(post__exact = id)
+        serializer = CommentListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class TagsList(viewsets.ViewSet):
@@ -91,8 +98,8 @@ class TagsList(viewsets.ViewSet):
 
 
 class RatingList(viewsets.ViewSet):
-    def list(self, request):
-        queryset = ValueRatingPost.objects.all()
+    def cur_list(self, request, id=None):
+        queryset = ValueRatingPost.objects.filter(post_id=id)
         serializer = RatingListSerializer(queryset, many=True)
         return Response(serializer.data)
 

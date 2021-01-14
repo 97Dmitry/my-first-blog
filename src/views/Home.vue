@@ -1,110 +1,73 @@
 <template>
-  <!--  <header class="header">-->
-  <!--    <div class="container">-->
-
-  <!--      <div class="header__inner">-->
-
-  <!--        <a class="header__logo" href="#">BlogPost</a>-->
-
-  <!--        <nav class="nav">-->
-  <!--          &lt;!&ndash;                    {% if user.is_anonymous %}&ndash;&gt;-->
-  <!--          <a class="nav__link" href="#">Авторизоваться</a>-->
-  <!--          <a class="nav__link" href="#">Зарегистрироватья</a>-->
-  <!--          &lt;!&ndash;                    {% endif %}&ndash;&gt;-->
-  <!--          &lt;!&ndash;                    {% if user.is_authenticated %}&ndash;&gt;-->
-  <!--          <a class="nav__link" href="#">Моя страница <br> #USER# </a>-->
-  <!--          <a class="nav__link nav__link&#45;&#45;red" href="#">Выйти</a>-->
-  <!--          &lt;!&ndash;                    {% endif %}&ndash;&gt;-->
-  <!--        </nav>-->
-
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </header>-->
-
-    <!--        {% block left_nav %}-->
-    <div class="container_nav">
-      <div class="container__tags">
-        <p class="tags__title">Навигация по тегам</p>
-        <!--        {% for tag in tags %}-->
-        <div v-for="tag in Tags" :key="tag.id">
-          <ul>
-            <li><a class="tags__text" href="">{{ tag.rubric }}</a></li>
-          </ul>
-        </div>
-        <!--        {% endfor %}-->
-      </div>
-      <div class="container__chat_link">
-        <a class="chat__link" href="">Ссылка на чат</a>
+  <div class="container_nav">
+    <div class="container__tags">
+      <p class="tags__title">Навигация по тегам</p>
+      <div v-for="tag in Tags" :key="tag.id">
+        <ul>
+          <li><a class="tags__text" href="">{{ tag.rubric }}</a></li>
+        </ul>
       </div>
     </div>
-    <!--        {% endblock %}-->
-    <div class="container container--content">
-      <NewPost_link />
-      <!--      {% block content %}-->
-      <p>Всего записей: {{ Posts.length }}</p>
-      <div v-for="post in Posts" :key="post.id" class="post">
-        <main>
-          <!--          {% for post in page %}-->
-          <h2 class="post__title post__title__link" href="#" @click="goTo(post.id)">{{ post.title }}</h2>
-<!--              <router-link to="/">Home</router-link>-->
-          <div class="media text-muted pt-3">
-            <img class="mr-2 rounded" style="width: 58px; height: 58px;"
-                 :src="Profile[checkIndex(Profile, post)].picture" alt="">
-            <div class="mb-1">
-              <p><strong class="d-block">{{ post.author }}</strong>
-                <span v-for="rank in Profile[checkIndex(Profile, post)].user_rank" :key="rank.id">
+    <div class="container__chat_link">
+      <a class="chat__link" href="">Ссылка на чат</a>
+    </div>
+  </div>
+  <div class="container container--content">
+    <NewPost_link/>
+    <p>Всего записей: {{ Posts.length }}</p>
+    <div v-for="post in Posts" :key="post.id" class="post">
+      <main>
+        <h2 class="post__title post__title__link" href="#" @click="goTo(post.id)">{{ post.title }}</h2>
+        <div class="media text-muted pt-3">
+          <img class="mr-2 rounded" style="width: 58px; height: 58px;"
+               :src="Profile[checkIndex(Profile, post)].picture" alt="">
+          <div class="mb-1">
+            <p><strong class="d-block">{{ post.author }}</strong>
+              <span v-for="rank in Profile[checkIndex(Profile, post)].user_rank" :key="rank.id">
                   <span> {{ rank }}, </span>
                 </span>
-              </p>
-            </div>
+            </p>
           </div>
-
-          <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
-          <div class="date">
-            <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
-          </div>
-          <details>
-            <summary>Развернуть</summary>
-            <p>{{ post.text }}</p>
-          </details>
-          <hr/>
-          <!--          {% endfor %}-->
-        </main>
-      </div>
-      <nav aria-label="...">
-        <ul class="pagination">
-          <li class="page-item {% if not prev_url %} disabled {% endif %}">
-            <a class="page-link" href="">Предыдущая страница</a>
-          </li>
-          <!--            {% for n in page.paginator.page_range %}-->
-          <!--            {% if page.number == n %}-->
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href=""></a>
-          </li>
-          <!--            {% elif n > page.number|add:-3 and n < page.number|add:3 %}-->
-          <li class="page-item">
-            <a class="page-link" href=""></a>
-          </li>
-          <!--            {% endif %}-->
-          <!--            {% endfor %}-->
-          <li class="page-item {% if not next_url %} disabled {% endif %}">
-            <a class="page-link" href="">Следующая страница</a>
-          </li>
-        </ul>
-      </nav>
-      <hr/>
+        </div>
+        <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
+        <div class="date">
+          <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
+        </div>
+        <details>
+          <summary>Развернуть</summary>
+          <p v-html="post.text"></p>
+        </details>
+        <hr/>
+      </main>
     </div>
-    <!--      {% endblock %}-->
-
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item {% if not prev_url %} disabled {% endif %}">
+          <a class="page-link" href="">Предыдущая страница</a>
+        </li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href=""></a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href=""></a>
+        </li>
+        <li class="page-item {% if not next_url %} disabled {% endif %}">
+          <a class="page-link" href="">Следующая страница</a>
+        </li>
+      </ul>
+    </nav>
+    <hr/>
+  </div>
 </template>
 
 
 <script>
 import NewPost_link from "@/components/NewPost_link";
 
-
 export default {
   name: 'Home',
+  title: "BlogPost",
+
   data() {
     return {
       Posts: [],
@@ -167,11 +130,6 @@ export default {
 </script>
 
 <style scoped>
-.d-block {
-  font-size: 18px;
-  border-bottom: 1px solid white;
-  margin-bottom: 4px;
-}
 
 .container--content {
   margin-left: 5px;

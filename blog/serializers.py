@@ -13,6 +13,7 @@ class TagsListSerializer(serializers.ModelSerializer):
 class CommentListSerializer(serializers.ModelSerializer):
     """Комментарии к постам"""
 
+    name = serializers.SlugRelatedField(slug_field="username", read_only=True)
     post = serializers.SlugRelatedField(slug_field="id", read_only=True)
 
     class Meta:
