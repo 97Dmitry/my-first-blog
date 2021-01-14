@@ -5,9 +5,10 @@ from . import views
 router = DefaultRouter()
 
 router.register(r'api/post_list', views.PostList, basename='rest_post_list')
+router.register(r'api/post_list/<int:pk>', views.PostList, basename='rest_post')
 router.register(r'api/comment_list', views.CommentList, basename='rest_comment_list')
 router.register(r'api/tags_list', views.TagsList, basename='rest_tags_list')
-
+router.register(r'api/rating_list', views.RatingList, basename='rest_tage_list')
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
@@ -25,7 +26,7 @@ urlpatterns = [
 
     # For REST need use 'api/...'
     # path('api/post_list', views.PostList.as_view({'get': 'list'})),
-    # path('api/post_list/<int:pk>', views.PostList.as_view({'get': 'current'})),
+    path('api/post/<int:pk>', views.PostList.as_view({'get': 'post'})),
 
 ] + router.urls
 
