@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  web:
+  django:
     container_name: django_postblog
     build:
       context: .
@@ -29,10 +29,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
 
+
   redis:
     image: redis:latest
-    ports:
-    - 6379:6379
+
 
   nginx:
     build: ./nginx
@@ -42,7 +42,21 @@ services:
     ports:
       - 1337:80
     depends_on:
-      - web
+      - django
+
+
+  daphne:
+    build: .
+    command: daphne -b 0.0.0.0 -p 8001 test_site.asgi:application
+    env_file:
+      - .env
+    expose:
+      - 8001
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+
+
 
 volumes:
   postgres_data:

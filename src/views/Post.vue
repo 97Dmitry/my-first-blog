@@ -36,15 +36,14 @@
       </details>
       <hr/>
       <h5>Создать свой комментарий:</h5>
-      <!--            <details>-->
-      <!--                <form method="POST" class="post-form">-->
-      <!--                    {% csrf_token %}-->
-      <!--                    <p> Комментарий: <br/>{{ form.comment }} <br/> {{ form.comment.help_text }} </p>-->
-      <!--                    <p> Email: <br/>{{ form.email }} </p>-->
-      <!--                    <button type="submit" class="save btn btn-success">Создать</button>-->
-      <!--                    {{ form.captcha }}-->
-      <!--                </form>-->
-      <!--            </details>-->
+<!--                  <details>-->
+<!--                      <form method="POST" class="post-form">-->
+<!--                          <p> Комментарий: <br/>{{ form.comment }} <br/> {{ form.comment.help_text }} </p>-->
+<!--                          <p> Email: <br/>{{ form.email }} </p>-->
+<!--                          <button type="submit" class="save btn btn-success">Создать</button>-->
+<!--                          {{ form.captcha }}-->
+<!--                      </form>-->
+<!--                  </details>-->
       <hr/>
     </div>
     <a href="">Оценить пост</a>
@@ -87,6 +86,7 @@ export default {
       Profile: [],
       Rating: [],
       Comments: []
+
 
     }
   },
@@ -150,10 +150,6 @@ export default {
       ).then(response => response.json())
     },
 
-    // AvgRating() {
-    //   this.Rating.avg = (this.Rating.reduce((total, rating) => {total + rating.rating}, 0) / this.Rating.length)
-    //   console.log(this.Rating.avg, this.Rating)
-    // }
   },
 
 }

@@ -19,12 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY  # os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')  # SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # bool(os.getenv("DEBUG", default=False))
+DEBUG = bool(os.getenv("DEBUG", default=False))  # True
 
-ALLOWED_HOSTS = ALLOWED_HOSTS.split(' ')  # os.getenv("ALLOWED_HOSTS").split(' ')
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(' ')  # ALLOWED_HOSTS.split(' ')
 
 # Application definition
 
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'corsheaders',
-
 
 ]
 
@@ -104,12 +103,12 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
-        'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
-        'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
-        'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
-        'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
-        'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
+        'ENGINE': os.getenv("POSTGRES_ENGINE"),  # POSTGRES_ENGINE,
+        'NAME': os.getenv("POSTGRES_NAME"),  # POSTGRES_NAME,
+        'USER': os.getenv("POSTGRES_USER"),  # POSTGRES_USER,
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),  # POSTGRES_PASSWORD,
+        'HOST': os.getenv("POSTGRES_HOST"),  # POSTGRES_HOST,
+        'PORT': os.getenv("POSTGRES_PORT"),  # POSTGRES_PORT,
     }
 }
 
@@ -176,15 +175,15 @@ if settings.DEBUG:
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = EMAIL_HOST_USER  # os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD  # os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # EMAIL_HOST_PASSWORD
 
 # URL
 LOGIN_URL = 'sing_in'
 
 # reCaptcha
-RECAPTCHA_PRIVATE_KEY = PRIVATE_KEY  # os.getenv("PRIVATE_KEY")
-RECAPTCHA_PUBLIC_KEY = PUBLIC_KEY  # os.getenv("PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("PRIVATE_KEY")  # PRIVATE_KEY
+RECAPTCHA_PUBLIC_KEY = os.getenv("PUBLIC_KEY")  # PUBLIC_KEY
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
 

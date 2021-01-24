@@ -13,8 +13,14 @@ constantly==15.1.0
 cryptography==3.3.1
 daphne==3.0.1
 Django==3.1.5
-djangorestframework==3.12.2
+django-ckeditor==6.0.0
+django-cors-headers==3.6.0
+django-js-asset==1.2.2
 django-recaptcha3==0.4.0
+django-websocket-redis==0.6.0
+djangorestframework==3.12.2
+gevent==21.1.2
+greenlet==1.0.0
 gunicorn==20.0.4
 hiredis==1.1.0
 hyperlink==21.0.0
@@ -29,6 +35,7 @@ pycparser==2.20
 PyHamcrest==2.0.2
 pyOpenSSL==20.0.1
 pytz==2020.5
+redis==3.5.3
 requests==2.25.1
 selenium==3.141.0
 service-identity==18.1.0
@@ -37,4 +44,6 @@ sqlparse==0.4.1
 Twisted==20.3.0
 txaio==20.12.1
 urllib3==1.26.2
+wsaccel==0.6.3
+zope.event==4.5.0
 zope.interface==5.2.0
