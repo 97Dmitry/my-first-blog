@@ -4,7 +4,7 @@ from . import views
 
 router = DefaultRouter()
 
-router.register(r'api/profile_list', views.ProfileSerializer, basename='rest_profile_list')
+router.register(r'api/profile_list', views.ProfilesSerializer, basename='rest_profile_list')
 
 
 urlpatterns = [
@@ -16,7 +16,10 @@ urlpatterns = [
     path('recovery_password/', views.PasswordRecovery.as_view(), name='recovery_password'),
     path('password_recovery_done', views.PasswordRecoveryDone.as_view(), name='password_recovery_done'),
     path('recovery_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-        views.PasswordRecoveryConfirm.as_view(), name='recovery_confirm'),
+         views.PasswordRecoveryConfirm.as_view(), name='recovery_confirm'),
     path('recovery_complete/', views.PasswordRecoverComplete.as_view(), name='recovery_complete'),
 
-] + router.urls
+    # For REST need use 'api/...'
+    # path('api/profile_list/', views.ProfilesSerializer.as_view({'get': 'list'})),
+
+]  + router.urls

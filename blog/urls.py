@@ -27,7 +27,7 @@ urlpatterns = [
     # path('api/post_list', views.PostList.as_view({'get': 'list'})),
     path('api/post/<int:pk>/', views.PostList.as_view({'get': 'post'})),
     path('api/comment_list/<int:id>/', views.CommentList.as_view({'get': 'comment_post'})),
-    path('api/cur_rating/<int:id>/', views.RatingList.as_view({'get': 'cur_list'}))
+    path('api/cur_rating/<int:id>/', views.RatingList.as_view({'get': 'cur_list'})),
 
 
 ] + router.urls

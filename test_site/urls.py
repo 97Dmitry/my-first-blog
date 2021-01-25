@@ -28,6 +28,8 @@ urlpatterns = [
     path('', include('chat.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('accounts/', include('allauth.urls')),
+
 
 
 ]

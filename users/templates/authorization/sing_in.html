@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+{% load socialaccount %}
+<html lang="ru">
 
 <head>
     <title>Авторизация</title>
@@ -76,6 +77,14 @@
                             </td>
                             <td>
                                 <a href="{% url 'recovery_password' %}" class="ml-2">Восстановить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Войти через VK?
+                            </td>
+                            <td>
+                                <a href="{% provider_login_url "vk" method="oauth2" %}" class="ml-2">Войти</a>
                             </td>
                         </tr>
                     </table>

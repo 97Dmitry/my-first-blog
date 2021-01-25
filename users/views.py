@@ -124,7 +124,10 @@ class PasswordRecoverComplete(PasswordResetCompleteView):
 
 # REST
 
-class ProfileSerializer(viewsets.ModelViewSet):
-    # def list(self, request):
+class ProfilesSerializer(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
+    # def list(self, request):
+    #     queryset = Profile.objects.all()
+    #     serializer = ProfileSerializer(queryset, many=True)
+    #     return Response(serializer.data)

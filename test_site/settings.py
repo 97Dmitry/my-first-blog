@@ -19,12 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')  # SECRET_KEY
+SECRET_KEY = SECRET_KEY  # os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG", default=False))  # True
+DEBUG = True  # bool(os.getenv("DEBUG", default=False))
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(' ')  # ALLOWED_HOSTS.split(' ')
+ALLOWED_HOSTS = ALLOWED_HOSTS.split(' ')  # os.getenv("ALLOWED_HOSTS").split(' ')
 
 # Application definition
 
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'chat.apps.ChatConfig',
@@ -45,6 +46,13 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'corsheaders',
+    'django_cleanup',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk'
+
 
 ]
 
@@ -79,6 +87,14 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 # Channels
 WSGI_APPLICATION = 'test_site.wsgi.application'
 ASGI_APPLICATION = "test_site.asgi.application"
@@ -103,12 +119,12 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv("POSTGRES_ENGINE"),  # POSTGRES_ENGINE,
-        'NAME': os.getenv("POSTGRES_NAME"),  # POSTGRES_NAME,
-        'USER': os.getenv("POSTGRES_USER"),  # POSTGRES_USER,
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),  # POSTGRES_PASSWORD,
-        'HOST': os.getenv("POSTGRES_HOST"),  # POSTGRES_HOST,
-        'PORT': os.getenv("POSTGRES_PORT"),  # POSTGRES_PORT,
+        'ENGINE': POSTGRES_ENGINE,  # os.getenv("POSTGRES_ENGINE"),
+        'NAME': POSTGRES_NAME,  # os.getenv("POSTGRES_NAME"),
+        'USER': POSTGRES_USER,  # os.getenv("POSTGRES_USER"),
+        'PASSWORD': POSTGRES_PASSWORD,  # os.getenv("POSTGRES_PASSWORD"),
+        'HOST': POSTGRES_HOST,  # os.getenv("POSTGRES_HOST"),
+        'PORT': POSTGRES_PORT,  # os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -160,6 +176,7 @@ MEDIA_URL = '/media/'
 
 # Cors whitelist
 CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:1337",
     "http://127.0.0.1:8000",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
@@ -175,15 +192,16 @@ if settings.DEBUG:
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # EMAIL_HOST_PASSWORD
+EMAIL_HOST_USER = EMAIL_HOST_USER  # os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD  # os.getenv("EMAIL_HOST_PASSWORD")
 
 # URL
 LOGIN_URL = 'sing_in'
+LOGIN_REDIRECT_URL = '/'
 
 # reCaptcha
-RECAPTCHA_PRIVATE_KEY = os.getenv("PRIVATE_KEY")  # PRIVATE_KEY
-RECAPTCHA_PUBLIC_KEY = os.getenv("PUBLIC_KEY")  # PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = PRIVATE_KEY  # os.getenv("PRIVATE_KEY")
+RECAPTCHA_PUBLIC_KEY = PUBLIC_KEY  # os.getenv("PUBLIC_KEY")
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
 
@@ -191,3 +209,5 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 
 CKEDITOR_UPLOAD_PATH = CKEDITOR_UPLOAD_PATH
 CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
+
+SITE_ID = 1
