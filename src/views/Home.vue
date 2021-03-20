@@ -4,7 +4,7 @@
       <p class="tags__title">Навигация по тегам</p>
       <div v-for="tag in Tags" :key="tag.id">
         <ul>
-          <li><a class="tags__text" href="">{{ tag.rubric }}</a></li>
+          <li class="tags__text" href="#" @click="goToTag(tag.id)">{{ tag.rubric }}</li>
         </ul>
       </div>
     </div>
@@ -17,7 +17,7 @@
     <p>Всего записей: {{ Posts.length }}</p>
     <div v-for="post in Posts" :key="post.id" class="post">
       <main>
-        <h2 class="post__title post__title__link" href="#" @click="goTo(post.id)">{{ post.title }}</h2>
+        <h2 class="post__title post__title__link" href="#" @click="goToPost(post.id)">{{ post.title }}</h2>
         <div class="media text-muted pt-3">
           <img class="mr-2 rounded" style="width: 58px; height: 58px;"
                :src="Profile[checkIndex(Profile, post)].picture" alt="">
@@ -119,9 +119,13 @@ export default {
       return a
     },
 
-    goTo(id) {
+    goToPost(id) {
       this.$router.push({name: 'Post', params: {id: id}})
-    }
+    },
+
+    goToTag(id) {
+      this.$router.push({name: 'Tag', params: {id: id}})
+    },
 
 
   }

@@ -1,5 +1,6 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
-import Home from '../views/Home.vue'
+import {createRouter, createWebHashHistory} from 'vue-router';
+import Home from '../views/Home.vue';
+import Tag from "@/views/Tag";
 import Post from "@/views/Post.vue";
 
 const routes = [
@@ -21,7 +22,14 @@ const routes = [
         name: 'Post',
         component: Post,
         props: true
-    }
+    },
+
+    {
+        path: '/tags_list/:id',
+        name: 'Tag',
+        component: Tag,
+        props: true
+    },
 
 
 ]

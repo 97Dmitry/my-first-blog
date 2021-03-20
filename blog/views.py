@@ -85,7 +85,7 @@ class CommentList(viewsets.ViewSet):
         return Response(serializer.data)
 
     def comment_post(self, request, id=None):
-        queryset = Comments.objects.filter(post__exact = id)
+        queryset = Comments.objects.filter(post__exact=id)
         serializer = CommentListSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -94,6 +94,16 @@ class TagsList(viewsets.ViewSet):
     def list(self, request):
         queryset = Rubric.objects.all()
         serializer = TagsListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def current_tag(self, request, pk=None):
+        queryset = Rubric.objects.get(pk=pk)
+        serializer = TagsListSerializer(queryset)
+        return Response(serializer.data)
+
+    def posts(self, request, pk=None):
+        queryset = Post.objects.filter(rubric_id=pk)
+        serializer = PostListSerializer(queryset, many=True)
         return Response(serializer.data)
 
 

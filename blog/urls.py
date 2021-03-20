@@ -28,6 +28,8 @@ urlpatterns = [
     path('api/post/<int:pk>/', views.PostList.as_view({'get': 'post'})),
     path('api/comment_list/<int:id>/', views.CommentList.as_view({'get': 'comment_post'})),
     path('api/cur_rating/<int:id>/', views.RatingList.as_view({'get': 'cur_list'})),
+    path('api/tag_posts/<int:pk>/', views.TagsList.as_view({'get': 'posts'})),
+    path('api/cur_tag/<int:pk>/', views.TagsList.as_view({'get': 'current_tag'})),
 
 
 ] + router.urls
