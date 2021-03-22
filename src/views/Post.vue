@@ -1,4 +1,5 @@
 <template>
+  <Tags/>
   <div class="container container--content">
     <NewPost_link/>
     <h2 class="post__title">{{ Post.title }}</h2>
@@ -73,6 +74,7 @@
 
 <script>
 import NewPost_link from "@/components/NewPost_link";
+import Tags from "@/components/Tags";
 
 export default {
   name: "Post",
@@ -92,6 +94,7 @@ export default {
   },
 
   components: {
+    Tags,
     NewPost_link,
 
 

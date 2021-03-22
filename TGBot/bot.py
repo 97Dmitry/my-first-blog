@@ -1,8 +1,8 @@
 import telebot
 import re
-import prod_settings
+from prod_settings import *
 
-bot = telebot.TeleBot(prod_settings.TGBOT_TOKEN)
+bot = telebot.TeleBot(TGBOT_TOKEN)
 
 bot_keyboard = telebot.types.ReplyKeyboardMarkup(True, True)
 bot_keyboard.row('Информация о сайте', 'Связь с администрацией')

@@ -1,17 +1,5 @@
 <template>
-  <div class="container_nav">
-    <div class="container__tags">
-      <p class="tags__title">Навигация по тегам</p>
-      <div v-for="tag in Tags" :key="tag.id">
-        <ul>
-          <li class="tags__text" href="#" @click="goToTag(tag.id)">{{ tag.rubric }}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="container__chat_link">
-      <a class="chat__link" href="">Ссылка на чат</a>
-    </div>
-  </div>
+  <Tags/>
   <div class="container container--content">
     <NewPost_link/>
     <p>Всего записей: {{ Posts.length }}</p>
@@ -63,6 +51,7 @@
 
 <script>
 import NewPost_link from "@/components/NewPost_link";
+import Tags from "@/components/Tags";
 
 export default {
   name: 'Home',
@@ -71,18 +60,17 @@ export default {
   data() {
     return {
       Posts: [],
-      Tags: [],
       Profile: [],
 
     }
   },
   components: {
     NewPost_link,
+    Tags,
 
   },
   created() {
     this.loadListPosts();
-    this.loadTagsPosts();
     this.loadProfilePosts();
 
 
@@ -93,13 +81,6 @@ export default {
           `${this.$store.getters.getServerUrl}/post_list`
       ).then(response => response.json())
       console.log(this.Posts)
-    },
-
-    async loadTagsPosts() {
-      this.Tags = await fetch(
-          `${this.$store.getters.getServerUrl}/tags_list`
-      ).then(response => response.json())
-      console.log(this.Tags)
     },
 
     async loadProfilePosts() {
@@ -122,22 +103,10 @@ export default {
     goToPost(id) {
       this.$router.push({name: 'Post', params: {id: id}})
     },
-
-    goToTag(id) {
-      this.$router.push({name: 'Tag', params: {id: id}})
-    },
-
-
   }
-
 }
 </script>
 
 <style scoped>
-
-.container--content {
-  margin-left: 5px;
-}
-
 
 </style>
