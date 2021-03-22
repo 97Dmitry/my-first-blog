@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'channels',
     'django.contrib.postgres',
     'rest_framework',
+    'drf_yasg',
     'ckeditor',
     'ckeditor_uploader',
     'corsheaders',
@@ -210,4 +211,4 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 CKEDITOR_UPLOAD_PATH = CKEDITOR_UPLOAD_PATH
 CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
 
-SITE_ID = 4
+SITE_ID = 1

@@ -27,7 +27,7 @@ def sing_up(request):
             # raw_password = form.cleaned_data.get('password')
             # user = authenticate(username=username, password=raw_password)
             # login(request, user)
-            messages.success(request, 'Вы успешно зарегестрировались')
+            messages.success(request, 'Вы успешно зарегистрировались')
             return redirect('post_list')
     else:
 
@@ -43,7 +43,7 @@ def sing_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=username, password=password, backend='django.contrib.auth.backends.ModelBackend')
         if user is not None:
             login(request, user)
             messages.success(request, f'Вы успешно авторизовались под именем {username}')
@@ -115,6 +115,7 @@ class PasswordRecoveryConfirm(PasswordResetConfirmView):
     template_name = 'authorization/password_recovery_confirm.html'
     form_class = RecoveryPassword
     post_reset_login = True
+    post_reset_login_backend = 'django.contrib.auth.backends.ModelBackend'
     success_url = reverse_lazy('recovery_complete')
 
 

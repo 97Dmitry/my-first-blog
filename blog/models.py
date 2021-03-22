@@ -54,9 +54,9 @@ class Comments(models.Model):
     name = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Комментатор')
     email = models.EmailField(blank=True, null=True, help_text='Не обязательное полне')
     comment = models.TextField(max_length=1000, verbose_name='Комментарий',
-                               help_text='Комментарий может содержать от 15 до 1000 символов',
-                               validators=[validators.MinLengthValidator(15,
-                                                                         message='Длина текста меньше 15 символов')])
+                               help_text='Комментарий может содержать от 10 до 1000 символов',
+                               validators=[validators.MinLengthValidator(10,
+                                                                         message='Длина текста меньше 10 символов')])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)

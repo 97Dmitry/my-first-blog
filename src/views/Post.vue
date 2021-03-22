@@ -110,7 +110,7 @@ export default {
   methods: {
     async loadPost() {
       this.Post = await fetch(
-          `${this.$store.getters.getServerUrl}/post/${this.id}`
+          `${this.$store.getters.getServerUrl}/post_set/${this.id}`
       ).then(response => response.json())
       // console.log(this.Post, this.id)
 
@@ -149,7 +149,7 @@ export default {
     },
     async loadCommentsPosts() {
       this.Comments = await fetch(
-          `${this.$store.getters.getServerUrl}/comment_list/${this.id}`
+          `${this.$store.getters.getServerUrl}/comment_set/${this.id}`
       ).then(response => response.json())
     },
 

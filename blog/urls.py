@@ -1,12 +1,15 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from . import views
+from . import api
+
 
 router = DefaultRouter()
 
-router.register(r'api/post_list', views.PostList, basename='rest_post_list')
-router.register(r'api/comment_list', views.CommentList, basename='rest_comment_list')
-router.register(r'api/tags_list', views.TagsList, basename='rest_tags_list')
+router.register(r'api/post_set', api.PostList, basename='rest_post_list')
+router.register(r'api/comment_set', api.CommentList, basename='rest_comment_list')
+#router.register(r'api/comment_list', views.CommentList, basename='rest_comment_list')
+router.register(r'api/tags_list', api.TagsList, basename='rest_tags_list')
 # router.register(r'api/rating_list', views.RatingList, basename='rest_tage_list')
 
 urlpatterns = [
@@ -25,11 +28,11 @@ urlpatterns = [
 
     # For REST need use 'api/...'
     # path('api/post_list', views.PostList.as_view({'get': 'list'})),
-    path('api/post/<int:pk>/', views.PostList.as_view({'get': 'post'})),
-    path('api/comment_list/<int:id>/', views.CommentList.as_view({'get': 'comment_post'})),
-    path('api/cur_rating/<int:id>/', views.RatingList.as_view({'get': 'cur_list'})),
-    path('api/tag_posts/<int:pk>/', views.TagsList.as_view({'get': 'posts'})),
-    path('api/cur_tag/<int:pk>/', views.TagsList.as_view({'get': 'current_tag'})),
+    # path('api/comment_list/', api.CommentList.as_view({'get': 'list'})),
+    # path('api/comment_list/<int:id>/', api.CommentList.as_view({'get': 'retrieve'})),
+    path('api/cur_rating/<int:id>/', api.RatingList.as_view({'get': 'cur_list'})),
+    path('api/tag_posts/<int:pk>/', api.TagsList.as_view({'get': 'posts'})),
+    path('api/cur_tag/<int:pk>/', api.TagsList.as_view({'get': 'current_tag'})),
 
 
 ] + router.urls
