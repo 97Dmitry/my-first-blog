@@ -96,6 +96,12 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
 # Channels
 WSGI_APPLICATION = 'test_site.wsgi.application'
 ASGI_APPLICATION = "test_site.asgi.application"

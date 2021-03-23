@@ -1,3 +1,4 @@
+from django.http import request
 from rest_framework import serializers
 from .models import Post, Rubric, Comments, ValueRatingPost
 
@@ -33,11 +34,24 @@ class PostListSerializer(serializers.ModelSerializer):
         fields = ("title", "author", "text", "created_date", "rubric", "comments", "id")
 
 
+class PostPOSTSerializer(serializers.ModelSerializer):
+    """Список постов"""
+
+    # author = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    # author = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    # author = serializers.SlugRelatedField(slug_field="Автор", read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ("author", "title", "text", "rubric")
+
+
 class RatingListSerializer(serializers.ModelSerializer):
     """Оценка поста"""
 
     user = serializers.SlugRelatedField(slug_field="username", read_only=True)
     rating = serializers.SlugRelatedField(slug_field="value", read_only=True)
+
     # post = serializers.SlugRelatedField(slug_field="title", read_only=True)
 
     class Meta:

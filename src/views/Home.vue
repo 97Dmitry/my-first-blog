@@ -78,7 +78,7 @@ export default {
   methods: {
     async loadListPosts() {
       this.Posts = await fetch(
-          `${this.$store.getters.getServerUrl}/post_set`
+          `${this.$store.getters.getServerUrl}/posts_list`
       ).then(response => response.json())
       console.log(this.Posts)
     },
