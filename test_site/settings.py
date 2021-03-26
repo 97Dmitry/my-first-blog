@@ -66,6 +66,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+]
+
+MIDDLEWARE += [
+    # 'baipw.middleware.BasicAuthIPWhitelistMiddleware',
 ]
 
 ROOT_URLCONF = 'test_site.urls'
@@ -98,7 +103,8 @@ AUTHENTICATION_BACKENDS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+#         'rest_framework.permissions.IsAuthenticated'
     ]
 }
 
@@ -181,15 +187,27 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Cors whitelist
+# WHITELIST
+
 CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:1337",
     "http://127.0.0.1:8000",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
     "http://192.168.42.213:8080",
 
 ]
+
+# BASIC_AUTH_WHITELISTED_IP_NETWORKS = [
+#     "127.0.0.1/28",
+#     "192.168.42.213/28",
+# ]
+
+# BASIC_AUTH_WHITELISTED_PATHS = [
+#     '/api/',
+# ]
 
 # SMTP Configurations
 DEFAULT_FROM_EMAIL = 'admin@mail.com'

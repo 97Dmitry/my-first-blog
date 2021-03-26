@@ -1,27 +1,33 @@
 <template>
-  <div class="app">
-    <Header />
-    <div class="container content">
-      <router-view/>
-    </div>
+  <div id="app">
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script>
-
-import Header from "@/components/Header";
+import MainLayout from "@/layout/MainLayout";
+import EmptyLayout from "@/layout/EmptyLayout";
 
 export default {
   name: 'App',
   components: {
-    Header,
+    MainLayout,
+    EmptyLayout
+  },
 
+  computed: {
+    layout() {
+      return (this.$route.meta.layout  || "empty") + "-layout";
+    }
   }
+
 }
 </script>
 
 
 <style>
-@import "../static/css/style.css";
+@import "assets/style.css";
 </style>
 
