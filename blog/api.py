@@ -58,8 +58,9 @@ class PostList(viewsets.ViewSet):
 
 class PostCreate(APIView):
     """Создание новой записи"""
+    permission_classes = [IsAuthenticated]
 
-    @permission_classes([IsAuthenticated])
+    # @permission_classes([IsAuthenticated])
     def post(self, request):
         # data = JSONParser().parse(request)
         serializer = PostPOSTSerializer(data=request.data)

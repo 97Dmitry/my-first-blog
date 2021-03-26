@@ -116,6 +116,7 @@ p {
 .container_nav {
     display: flex;
     flex-direction: column;
+    margin-right: 5px;
 }
 
 .container__tags {
@@ -180,7 +181,13 @@ p {
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 400;
     margin-left: 10px;
+    margin-bottom: 0;
     color: white;
+}
+
+.d-block {
+  font-size: 18px;
+
 }
 
 /* Post */
