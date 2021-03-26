@@ -48,8 +48,4 @@ export default {
 
 <style scoped>
 
-.container--content {
-  margin-left: 5px;
-}
-
 </style>

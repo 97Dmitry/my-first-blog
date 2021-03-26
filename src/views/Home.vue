@@ -1,57 +1,57 @@
 <template>
-  <Tags/>
-  <div class="container container--content">
-    <NewPost_link/>
-    <p>Всего записей: {{ Posts.length }}</p>
-    <div v-for="post in Posts" :key="post.id" class="post">
-      <main>
-        <h2 class="post__title post__title__link" href="#" @click="goToPost(post.id)">{{ post.title }}</h2>
-        <div class="media text-muted pt-3">
-          <img class="mr-2 rounded" style="width: 58px; height: 58px;"
-               :src="Profile[checkIndex(Profile, post)].picture" alt="">
-          <div class="mb-1">
-            <p><strong class="d-block">{{ post.author }}</strong>
-              <span v-for="rank in Profile[checkIndex(Profile, post)].user_rank" :key="rank.id">
+<div>
+  <p>Всего записей: {{ Posts.length }}</p>
+  <div v-for="post in Posts" :key="post.id" class="post">
+    <main>
+      <h4 class="post__title post__title__link" href="#" @click="goToPost(post.id)">{{ post.title }}</h4>
+      <div class="media text-muted pt-3">
+        <img class="mr-2 rounded" style="width: 58px; height: 58px;"
+             :src="Profile[checkIndex(Profile, post)].picture" alt="">
+        <div class="mb-1">
+          <p><strong class="d-block">{{ post.author }}</strong>
+            <span v-for="rank in Profile[checkIndex(Profile, post)].user_rank" :key="rank.id">
                   <span> {{ rank }}, </span>
                 </span>
-            </p>
-          </div>
+          </p>
         </div>
-        <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
-        <div class="date">
-          <p class="post__published_date">Дата публикации: {{ post.created_date }}</p>
-        </div>
-        <details>
-          <summary>Развернуть</summary>
-          <p v-html="post.text"></p>
-        </details>
-        <hr/>
-      </main>
-    </div>
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item {% if not prev_url %} disabled {% endif %}">
-          <a class="page-link" href="">Предыдущая страница</a>
-        </li>
-        <li class="page-item active" aria-current="page">
-          <a class="page-link" href=""></a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href=""></a>
-        </li>
-        <li class="page-item {% if not next_url %} disabled {% endif %}">
-          <a class="page-link" href="">Следующая страница</a>
-        </li>
-      </ul>
-    </nav>
-    <hr/>
+      </div>
+      <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
+      <div class="date">
+        <p class="post__published_date">Дата публикации: {{ parseDate(post.created_date) }}</p>
+      </div>
+      <div class="home_page__text" id="post_text" :class="{ full: isOpen }">
+<!--          <details>-->
+<!--            <summary>Развернуть</summary>-->
+        <p v-html="post.text"></p>
+        <div class="bottom" :class="{ full2: isOpen }"></div>
+<!--          </details>-->
+      </div>
+      <a href="" v-on:click.prevent="isOpen = !isOpen">Читать дальше</a>
+      <hr/>
+    </main>
   </div>
+  <div aria-label="...">
+    <ul class="pagination">
+      <li class="page-item {% if not prev_url %} disabled {% endif %}">
+        <a class="page-link" href="">Предыдущая страница</a>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href=""></a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href=""></a>
+      </li>
+      <li class="page-item {% if not next_url %} disabled {% endif %}">
+        <a class="page-link" href="">Следующая страница</a>
+      </li>
+    </ul>
+  </div>
+  <hr/>
+</div>
 </template>
 
 
 <script>
-import NewPost_link from "@/components/NewPost_link";
-import Tags from "@/components/Tags";
 
 export default {
   name: 'Home',
@@ -61,12 +61,11 @@ export default {
     return {
       Posts: [],
       Profile: [],
+      isOpen: false
 
     }
   },
   components: {
-    NewPost_link,
-    Tags,
 
   },
   created() {
@@ -78,16 +77,14 @@ export default {
   methods: {
     async loadListPosts() {
       this.Posts = await fetch(
-          `${this.$store.getters.getServerUrl}/posts_list`
+        `${this.$store.getters.getServerUrl}/posts_list`
       ).then(response => response.json())
-      console.log(this.Posts)
     },
 
     async loadProfilePosts() {
       this.Profile = await fetch(
-          `${this.$store.getters.getServerUrl}/profile_list`
+        `${this.$store.getters.getServerUrl}/profile_list`
       ).then(response => response.json())
-      // console.log(this.Profile)
     },
 
     checkIndex(profile, post) {
@@ -103,6 +100,15 @@ export default {
     goToPost(id) {
       this.$router.push({name: 'Post', params: {id: id}})
     },
+    parseDate(date) {
+          if (String(new Date(date).getDay()).length < 2) {
+              return '0' + new Date(date).getDay() + '.' +
+                  String(new Date(date).getMonth()) + 1 + '.' +
+                  String(new Date(date).getFullYear())
+          } else return new Date(date).getDay() + '.' +
+              String(new Date(date).getMonth()) + 1 + '.' +
+              String(new Date(date).getFullYear())
+      }
   }
 }
 </script>
