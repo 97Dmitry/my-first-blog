@@ -1,9 +1,9 @@
 <template>
   <div class="container_nav">
     <div class="container__tags">
-      <p class="tags__title">Навигация по тегам</p>
+      <p class="tags__title">Навигация по тегам:</p>
       <div v-for="tag in Tags" :key="tag.id">
-        <ul>
+        <ul class="">
           <li class="tags__text" href="#" @click="goToTag(tag.id)">{{ tag.rubric }}</li>
         </ul>
       </div>
@@ -39,7 +39,7 @@ export default {
     },
 
     goToTag(id) {
-      this.$router.push({name: 'Tag', params: {id: id}})
+      this.$router.push({name: `Tag`, path: `tags_list/${id}`, params: {id: id}})
     },
   },
 

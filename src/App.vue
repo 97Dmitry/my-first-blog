@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <component :is="layout">
       <router-view />
     </component>
@@ -9,12 +9,14 @@
 <script>
 import MainLayout from "@/layout/MainLayout";
 import EmptyLayout from "@/layout/EmptyLayout";
+import VoidLayout from "@/layout/VoidLayout";
 
 export default {
   name: 'App',
   components: {
     MainLayout,
-    EmptyLayout
+    EmptyLayout,
+    VoidLayout
   },
 
   computed: {
@@ -28,6 +30,8 @@ export default {
 
 
 <style>
+@import "assets/style.css";
+@import "~materialize-css/dist/css/materialize.min.css";
 @import "assets/style.css";
 </style>
 

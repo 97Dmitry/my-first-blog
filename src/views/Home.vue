@@ -4,48 +4,47 @@
   <div v-for="post in Posts" :key="post.id" class="post">
     <main>
       <h4 class="post__title post__title__link" href="#" @click="goToPost(post.id)">{{ post.title }}</h4>
-      <div class="media text-muted pt-3">
-        <img class="mr-2 rounded" style="width: 58px; height: 58px;"
+      <div class="user">
+        <img class="user_pic" style="width: 74px; height: 74px;"
              :src="Profile[checkIndex(Profile, post)].picture" alt="">
-        <div class="mb-1">
-          <p><strong class="d-block">{{ post.author }}</strong>
-            <span v-for="rank in Profile[checkIndex(Profile, post)].user_rank" :key="rank.id">
-                  <span> {{ rank }}, </span>
-                </span>
-          </p>
+        <div class="user_info">
+          <div class="user_name">{{ (post.author) }}</div>
+          <div>
+            {{ Profile[checkIndex(Profile, post)].user_rank }}
+          </div>
         </div>
       </div>
       <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
       <div class="date">
-        <p class="post__published_date">Дата публикации: {{ parseDate(post.created_date) }}</p>
+        <p class="post__published_date">Дата публикации: {{ $parseDate(post.created_date) }}</p>
       </div>
       <div class="home_page__text" id="post_text" :class="{ full: isOpen }">
-<!--          <details>-->
-<!--            <summary>Развернуть</summary>-->
+        <!--          <details>-->
+        <!--            <summary>Развернуть</summary>-->
         <p v-html="post.text"></p>
         <div class="bottom" :class="{ full2: isOpen }"></div>
-<!--          </details>-->
+        <!--          </details>-->
       </div>
       <a href="" v-on:click.prevent="isOpen = !isOpen">Читать дальше</a>
-      <hr/>
+      <hr style="color: white; border: 1px solid"/>
     </main>
   </div>
-  <div aria-label="...">
-    <ul class="pagination">
-      <li class="page-item {% if not prev_url %} disabled {% endif %}">
-        <a class="page-link" href="">Предыдущая страница</a>
-      </li>
-      <li class="page-item active" aria-current="page">
-        <a class="page-link" href=""></a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href=""></a>
-      </li>
-      <li class="page-item {% if not next_url %} disabled {% endif %}">
-        <a class="page-link" href="">Следующая страница</a>
-      </li>
-    </ul>
-  </div>
+  <!--  <div aria-label="...">-->
+  <!--    <ul class="pagination">-->
+  <!--      <li class="page-item {% if not prev_url %} disabled {% endif %}">-->
+  <!--        <a class="page-link" href="">Предыдущая страница</a>-->
+  <!--      </li>-->
+  <!--      <li class="page-item active" aria-current="page">-->
+  <!--        <a class="page-link" href=""></a>-->
+  <!--      </li>-->
+  <!--      <li class="page-item">-->
+  <!--        <a class="page-link" href=""></a>-->
+  <!--      </li>-->
+  <!--      <li class="page-item {% if not next_url %} disabled {% endif %}">-->
+  <!--        <a class="page-link" href="">Следующая страница</a>-->
+  <!--      </li>-->
+  <!--    </ul>-->
+  <!--  </div>-->
   <hr/>
 </div>
 </template>
@@ -65,9 +64,7 @@ export default {
 
     }
   },
-  components: {
-
-  },
+  components: {},
   created() {
     this.loadListPosts();
     this.loadProfilePosts();
@@ -99,16 +96,7 @@ export default {
 
     goToPost(id) {
       this.$router.push({name: 'Post', params: {id: id}})
-    },
-    parseDate(date) {
-          if (String(new Date(date).getDay()).length < 2) {
-              return '0' + new Date(date).getDay() + '.' +
-                  String(new Date(date).getMonth()) + 1 + '.' +
-                  String(new Date(date).getFullYear())
-          } else return new Date(date).getDay() + '.' +
-              String(new Date(date).getMonth()) + 1 + '.' +
-              String(new Date(date).getFullYear())
-      }
+    }
   }
 }
 </script>

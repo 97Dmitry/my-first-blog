@@ -1,14 +1,19 @@
 <template>
 <h4 class="post__title">{{ Post.title }}</h4>
 <div class="date">
-  <p class="post__published_date">Дата публикации: {{ parseDate(Post.created_date) }}</p>
+  <p class="post__published_date">Дата публикации: {{ $parseDate(Post.created_date) }}</p>
 </div>
 <p> Рейтинг записи: {{ Rating.avg }} из {{ Rating.length }} проголосовавших </p>
-<div class="media text-muted pt-3">
-  <img class="mr-2 rounded" style="width: 58px; height: 58px;" :src="Profile[checkIndex(Profile, Post.author)].picture"
-       alt="">
-  <p class="mb-1 ml-1 middle lh-sm"><strong class="d-block">@{{ Post.author }}</strong>Автор записи</p>
-</div>
+<div class="user">
+        <img class="user_pic" style="width: 74px; height: 74px;"
+             :src="Profile[checkIndex(Profile, post)].picture" alt="">
+        <div class="user_info">
+          <div class="user_name">{{ Post.author }}</div>
+          <div>
+            {{ Profile[checkIndex(Profile, Post)].user_rank }}
+          </div>
+        </div>
+      </div>
 <p>Тег: <a class="tags__text" href="#">{{ Post.rubric }}</a></p>
 <div class="text">
   <hr/>
@@ -25,7 +30,7 @@
           комментария</p>
       </div>
       <div class="date">
-        <p> Дата написания: {{ parseDate(comment.created) }} </p>
+        <p> Дата написания: {{ $parseDate(comment.created) }} </p>
       </div>
       <p> Комментарий: </p>
       <p class="ml-2"> {{ comment.comment }} </p>
@@ -128,16 +133,7 @@ export default {
       this.Comments = await fetch(
         `${this.$store.getters.getServerUrl}/comments_list/${this.id}`
       ).then(response => response.json())
-    },
-    parseDate(date) {
-          if (String(new Date(date).getDay()).length < 2) {
-              return '0' + new Date(date).getDay() + '.' +
-                  String(new Date(date).getMonth()) + 1 + '.' +
-                  String(new Date(date).getFullYear())
-          } else return new Date(date).getDay() + '.' +
-              String(new Date(date).getMonth()) + 1 + '.' +
-              String(new Date(date).getFullYear())
-      }
+    }
 
   },
 

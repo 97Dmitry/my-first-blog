@@ -1,11 +1,11 @@
 <template>
 <Header/>
-<div class="container content">
+<div class="container_style content">
   <Tags/>
-  <div class="container container--content">
+  <div class="container--content">
     <NewPost_link/>
     <router-view/>
-    <ModalWindow />
+<!--    <ModalWindow />-->
   </div>
 </div>
 </template>
@@ -14,7 +14,7 @@
 import Header from "@/components/Header";
 import Tags from "@/components/Tags";
 import NewPost_link from "@/components/NewPost_link";
-import ModalWindow from "@/components/ModalWindow";
+// import ModalWindow from "@/components/ModalWindow";
 
 export default {
   name: "MainLayout",
@@ -26,7 +26,7 @@ export default {
     Tags,
     Header,
     NewPost_link,
-    ModalWindow
+    // ModalWindow
   },
 
 }

@@ -1,8 +1,8 @@
 body {
     /* Настройка шрифта */
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 400;
-    font-size: 17px;
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+    /*font-weight: 400;*/
+    /*font-size: 17px;*/
     color: #ffffff;
     /* Сглаживание шрифта */
     -webkit-font-smoothing: antialiased;
@@ -21,14 +21,14 @@ p {
 *,
 *:before,
 *:after {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     border: 0;
     margin: 0;
 }
 
 /* Container */
-.container {
-    width: 100%;
+.container_style {
+    width: 70%;
 
     margin: 0 auto;
 }
@@ -108,22 +108,23 @@ p {
     background-color: #343437;
     border-radius: 20px;
     padding: 10px 10px;
-    max-width: 80%;
+    width: 100%;
     margin: 0 auto;
+    left: 0;
 
 }
 
 .container_nav {
     display: flex;
     flex-direction: column;
-    margin-right: 2px;
+    margin-right: 5px;
 }
 
 .container__tags {
     background-color: #343437;
     border-radius: 20px;
     padding-bottom: 10px;
-    width: 250px;
+    width: 235px;
 
     margin-right: 0;
 }
@@ -161,6 +162,8 @@ p {
         color: #1aa6e7;
     text-decoration: none;
     transition: color 0.2s linear;
+    margin: 10px 0 10px 20px;
+
 }
 
 .tags__text:hover {
@@ -176,9 +179,30 @@ p {
 
 /* Profile NAME */
 
-.media{
+.user{
+    width: 50%;
+    display: flex;
+    border: 2px solid crimson;
+    margin-bottom: 4px;
+}
+
+.user_pic {
+    margin-right: 4px;
+}
+
+.user_info {
+    display: block;
+}
+
+.user_name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.user_rank {
     display: flex;
 }
+
 .mb-1 {
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 400;
@@ -194,9 +218,9 @@ p {
 
 /* Post */
 .post__title {
-    width: 55%;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
+    width: 90%;
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*font-weight: 700;*/
 }
 
 .post__title__link {
@@ -257,8 +281,7 @@ p {
     -ms-flex-align:center;
     align-items:center;
     padding-top:5rem;
-    height:100vh;
-    background-color: #546e7a !important;
+    height:100vh
 }
 
 /* Auth */
