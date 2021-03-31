@@ -1,80 +1,87 @@
 <template>
-<form class="card auth-card border-secondary mb-3" v-on:submit.prevent="submitHandler()">
-  <div class="auth-container">
-    <div class="auth-title">
-      <span>Регистрация</span>
-    </div>
-    <div class="form-control">
-      <label for="username" class="auth-label">Username</label>
-      <input type="text"
-             class="form-control"
-             id="username"
-             placeholder="Введите имя аккаунта"
-             v-model.trim="username"
-             :class="{ red_border: v$.username.$error }">
+<form class="card auth-card col s12 m2" v-on:submit.prevent="submitHandler()">
+  <div class="card-content">
+    <span class="card-title">Регистрация</span>
+    <div class="input-field">
+      <input
+        id="username"
+        type="text"
+        v-model.trim="username"
+        :class="{ invalid: v$.username.$error }"
+      />
+      <label for="username">Имя аккаунта</label>
       <small
         class="helper-text invalid"
-        v-for="(error, index) in v$.username.$errors" :key="index">
+        v-for="(error, index) of v$.username.$errors"
+      >
         {{ printError(error.$validator, error.$params) }}
       </small>
     </div>
-    <div class="form-control">
-      <label for="email" class="auth-label">Email</label>
-      <input type="email"
-             class="form-control"
-             id="email"
-             placeholder="Введите email"
-             v-model.trim="email"
-             :class="{ red_border: v$.email.$error }">
+    <div class="input-field">
+      <input
+        id="email"
+        type="email"
+        v-model.trim="email"
+        :class="{ invalid: v$.email.$error }"
+      />
+      <label for="email">Электронная почта"</label>
       <small
         class="helper-text invalid"
-        v-for="(error, index) in v$.email.$errors" :key="index">
+        v-for="(error, index) of v$.email.$errors"
+      >
         {{ printError(error.$validator, error.$params) }}
       </small>
     </div>
-    <div class="form-control">
-      <label for="password1" class="auth-label">Password</label>
-      <input type="password"
-             class="form-control"
-             id="password1"
-             placeholder="Введите пароль"
-             v-model="password1"
-             :class="{ red_border: v$.password1.$error }">
+    <div class="input-field">
+      <input
+        id="password"
+        type="password"
+        v-model.trim="password"
+        :class="{ invalid: v$.password.$error }"
+      />
+      <label for="password">Пароль</label>
       <small
         class="helper-text invalid"
-        v-for="(error, index) in v$.password1.$errors" :key="index">
+        v-for="(error, index) of v$.password.$errors"
+      >
         {{ printError(error.$validator, error.$params) }}
       </small>
     </div>
-    <div class="form-control">
-      <label for="password2" class="auth-label">Confirm password</label>
-      <input type="password"
-             class="form-control"
-             id="password2"
-             placeholder="Подтвердите пароль"
-             v-model="password2"
-             :class="{ red_border: v$.password2.$error }">
+    <div class="input-field">
+      <input
+        id="passwordConfirmation"
+        type="password"
+        v-model.trim="passwordConfirmation"
+        :class="{ invalid: v$.passwordConfirmation.$error }"
+      />
+      <label for="passwordConfirmation">Пароль</label>
       <small
         class="helper-text invalid"
-        v-for="(error, index) in v$.password2.$errors" :key="index">
+        v-for="(error, index) of v$.passwordConfirmation.$errors"
+      >
         {{ printError(error.$validator, error.$params) }}
       </small>
     </div>
-    <div class="form-check" style="color: #0f0f0f; margin-bottom: 25px">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate"
-       v-on:click="agree = !agree" v-model="agree">
-      <label class="form-check-label" for="flexCheckIndeterminate">
-        С правилами согласен
-      </label>
+    <div>
+      <p>
+        <label>
+          <input type="checkbox" v-on:click="agree = !agree" v-model="agree"/>
+          <span>С правилами согласен</span>
+        </label>
+      </p>
     </div>
     <div class="d-grid gap-2">
-      <button class="btn btn-success" type="submit">Зарегистрироваться <i class="bi bi-arrow-right-square"></i></button>
+      <button class="btn btn-success" type="submit">Зарегистрироваться <i class="bi bi-arrow-right-square"></i>
+      </button>
     </div>
-    <p class="text-center" style="color: #0f0f0f; margin-top: 5px">
+    <p class="text-center"
+       style="color: #0f0f0f;
+       margin-top: 5px">
       Уже есть аккаунт?
       <router-link to="/login">Войти!</router-link>
     </p>
   </div>
+
 </form>
 </template>
 
@@ -90,8 +97,8 @@ export default {
   data() {
     return {
       email: "",
-      password1: "",
-      password2: "",
+      password: "",
+      passwordConfirmation: "",
       username: "",
       agree: false
     };
@@ -99,28 +106,34 @@ export default {
   validations() {
     return {
       email: {required, email},
-      password1: {required, minLength: minLength(8)},
-      password2: {required, minLength: minLength(8)},
+      password: {required, minLength: minLength(8)},
+      passwordConfirmation: {required, minLength: minLength(8)},
       username: {required, minLength: minLength(4)},
       agree: {checked: v => v}
     };
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       this.v$.$touch();
       if (this.v$.$error) {
+        console.log(this.$store.getters.getServerUrl)
         return;
+      } else if (this.password !== this.passwordConfirmation) {
+        this.$error("Пароль должен совпадать")
+        return
       }
-
       const formData = {
         email: this.email,
-        password1: this.password1,
-        password2: this.password2,
+        password: this.password,
         username: this.username
       }
-
+      try {
+        await this.$store.dispatch("accountRegistration", formData)
+      } catch (e) {
+        console.log(e)
+      }
       console.log(formData)
-
+      this.$message("Аккаунт успешно зарегистрирован")
       this.$router.push({name: "Home"});
     },
 

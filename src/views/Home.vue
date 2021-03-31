@@ -68,8 +68,6 @@ export default {
   created() {
     this.loadListPosts();
     this.loadProfilePosts();
-
-
   },
   methods: {
     async loadListPosts() {
@@ -77,7 +75,6 @@ export default {
         `${this.$store.getters.getServerUrl}/posts_list`
       ).then(response => response.json())
     },
-
     async loadProfilePosts() {
       this.Profile = await fetch(
         `${this.$store.getters.getServerUrl}/profile_list`
@@ -93,7 +90,6 @@ export default {
       })
       return a
     },
-
     goToPost(id) {
       this.$router.push({name: 'Post', params: {id: id}})
     }

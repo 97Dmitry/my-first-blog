@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import auth from "./auth"
 
 const store = createStore({
   state: {
@@ -11,13 +12,13 @@ const store = createStore({
 
   },
   modules: {
-
+    auth
   },
   getters: {
     getServerUrl: state => {
       return state.backendUrl
     }
-  }
+  },
 })
 
 export default store

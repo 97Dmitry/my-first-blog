@@ -40,6 +40,7 @@ export default {
 
     goToTag(id) {
       this.$router.push({name: `Tag`, path: `tags_list/${id}`, params: {id: id}})
+
     },
   },
 

@@ -15,8 +15,6 @@ app.use(router);
 app.use(store);
 app.use(parseDatePlugin)
 app.use(messagePlugin)
-app.add
-
 // MIXINS
 // app.mixin(parseDate)
 
