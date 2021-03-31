@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'corsheaders',
     'django_cleanup',
+    'djoser',
+    'rest_framework_simplejwt',
 
     'allauth',
     'allauth.account',
@@ -105,7 +107,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
 #         'rest_framework.permissions.IsAuthenticated'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 # Channels

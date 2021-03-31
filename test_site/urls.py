@@ -19,18 +19,37 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .yasg import urlpatterns as doc_urls
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 
 
 
 urlpatterns = [
+    # My project path
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('', include('users.urls')),
     path('', include('chat.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('accounts/', include('allauth.urls')),
 
+    # path('api-auth/', include('rest_framework.urls')),
+
+    # Post editor
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    # Social auth
+     path('accounts/', include('allauth.urls')),
+
+    # Token API
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
+
+    # path to our account's app endpoints
+    # path("api/accounts/", include("accounts.urls"))
 ]
 
 urlpatterns += doc_urls

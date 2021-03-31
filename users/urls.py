@@ -1,10 +1,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from . import views
+from . import api
 
 router = DefaultRouter()
 
-router.register(r'api/profile_list', views.ProfilesSerializer, basename='rest_profile_list')
+router.register(r'api/profile_list', api.ProfilesSerializer, basename='profile_list')
+router.register(r'api/user_list', api.UserList, basename='user_list')
 
 
 urlpatterns = [
