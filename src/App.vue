@@ -32,6 +32,5 @@ export default {
 <style>
 @import "assets/style.css";
 @import "~materialize-css/dist/css/materialize.min.css";
-@import "assets/style.css";
 </style>
 

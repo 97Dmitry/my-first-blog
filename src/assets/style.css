@@ -54,11 +54,17 @@ p {
 
 .header__logo {
     color: white;
+
     text-decoration: none;
     font-weight: 900;
     font-size: 35px;
+    transition: color 0.2s linear;
 }
 
+.header__logo:hover {
+    color: #187c12;
+    text-shadow: #0d5aa7 0 0 2px;
+}
 
 /* Nav */
 
@@ -75,7 +81,7 @@ p {
     margin-left: 50px; /* Отступ слева у каждого элемента */
     text-align: center;
     /*opacity: 0.75;*/
-    transition: color 0.2s linear;
+    transition: color 0.3s linear;
 }
 
 .nav__link:first-child { /* Настройки для первого элемента */
@@ -83,8 +89,7 @@ p {
 }
 
 .nav__link:hover {
-
-    color: #187c12;
+    color: #FFCB39;
 }
 
 .nav__link--red:hover {

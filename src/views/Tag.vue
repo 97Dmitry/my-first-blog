@@ -44,12 +44,10 @@ export default {
       Profile: [],
     }
   },
-
   created() {
     this.loadPosts();
     this.loadTag();
     this.loadProfilePosts();
-
 
   },
 
@@ -58,21 +56,18 @@ export default {
       this.Posts = await fetch(
         `${this.$store.getters.getServerUrl}/tag_posts/${this.id}`
       ).then(response => response.json())
-      console.log(this.Posts)
     },
 
     async loadTag() {
       this.Tag = await fetch(
-        `${this.$store.getters.getServerUrl}/cur_tag/${this.id}`
+        `${this.$store.getters.getServerUrl}/tags_list/${this.id}`
       ).then(response => response.json())
-      console.log(this.Tag)
     },
 
     async loadProfilePosts() {
       this.Profile = await fetch(
         `${this.$store.getters.getServerUrl}/profile_list`
       ).then(response => response.json())
-      // console.log(this.Profile)
     },
 
     checkIndex(profile, post) {
@@ -92,7 +87,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

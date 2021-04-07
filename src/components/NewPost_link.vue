@@ -13,7 +13,3 @@ export default {
   name: "NewPost_link"
 }
 </script>
-
-<style scoped>
-
-</style>

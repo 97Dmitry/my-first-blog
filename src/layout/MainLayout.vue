@@ -1,6 +1,6 @@
 <template>
 <Header/>
-<div class="container_style content">
+<div class="container_style content" v-if="isOpen">
   <Tags/>
   <div class="container--content">
     <NewPost_link/>
@@ -20,6 +20,7 @@ export default {
   name: "MainLayout",
   data() {
     return {
+      isOpen: 1
     }
   },
   components: {
@@ -32,7 +33,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-
-</style>

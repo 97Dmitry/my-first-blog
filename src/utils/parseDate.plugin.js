@@ -14,12 +14,28 @@ function Hours(time) {
   }
 }
 
+function DateP(date) {
+  if (date < 10) {
+    return '0' + date
+  } else {
+    return date
+  }
+}
+
+function Month(month) {
+  if (month < 9) {
+    return '0' + String(+month + 1)
+  } else {
+    return +month + 1
+  }
+}
+
 export default {
   install: (app) => {
     app.config.globalProperties.$parseDate = function (date) {
       let newDate = Date.parse(date)
-      newDate = new Date(newDate).getDate() + ',' +
-        new Date(newDate).getMonth() + 1 + ',' +
+      newDate = DateP(new Date(newDate).getDate()) + '.' +
+        Month(new Date(newDate).getMonth()) +  '.' +
         new Date(newDate).getFullYear() + ' ' +
         Hours(new Date(newDate).getHours()) + ':' +
         Minutes(new Date(newDate).getMinutes())

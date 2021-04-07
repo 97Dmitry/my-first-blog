@@ -1,7 +1,9 @@
+import store from "@/store/index";
+
 export default {
   actions: {
     async accountRegistration({dispatch}, {username, email, password}) {
-      const server = "http://127.0.0.1:8000/api"
+      const server = store.getters.getServerUrl
       await fetch(`${server}/auth/users/`,
         {
           method: "POST",

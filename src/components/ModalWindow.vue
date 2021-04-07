@@ -15,12 +15,12 @@
       </div>
       <div class="modal-body text-dark">
         <h4>Тестовый сайт, созданный с целью обучения программированию</h4>
-        <br />
+        <br/>
         <p>Вся информация в постах на этом сайте взята с открытых источников</p>
         <p>Исходный код этого сайта находится на моём <a href="https://github.com/97Dmitry/">GitHub'е</a></p>
         <p>Так же для подробной информации и обратной связи создан <a
           href="https://t.me/PostBlogSite_bot">TelegramBot</a></p>
-        <br />
+        <br/>
         <div class="progress" style="width: 450px;">
           <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
                style="width: 37%" aria-valuenow="70" aria-valuemin="10" aria-valuemax="100">Сайт завершен на 37%
@@ -41,7 +41,3 @@ export default {
   name: "ModalWindow"
 }
 </script>
-
-<style scoped>
-
-</style>
