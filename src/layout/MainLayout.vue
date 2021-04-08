@@ -3,9 +3,9 @@
     <Header />
     <div class="container_style content">
       <Tags v-on:sendRequest="requestReload" />
-      <div class="container--content" :key="reload">
+      <div class="container--content">
         <NewPost_link />
-        <router-view />
+        <router-view :key="$route.fullPath" />
         <!--    <ModalWindow />-->
       </div>
     </div>
@@ -27,15 +27,8 @@ export default {
     // ModalWindow
   },
   data() {
-    return {
-      reload: true,
-    };
+    return {};
   },
-  methods: {
-    requestReload() {
-      this.reload = !this.reload;
-      console.log(this.reload);
-    },
-  },
+  methods: {},
 };
 </script>

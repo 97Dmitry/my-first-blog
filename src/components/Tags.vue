@@ -11,7 +11,6 @@
               path: `tags_list/${tag.id}`,
               params: { id: tag.id },
             }"
-            v-on:click="updatePosts"
           >
             {{ tag.rubric }}
           </router-link>
@@ -42,9 +41,6 @@ export default {
       this.Tags = await fetch(
         `${this.$store.getters.getServerUrl}/tags_list`
       ).then((response) => response.json());
-    },
-    updatePosts() {
-      this.$emit("sendRequest");
     },
   },
 };
