@@ -1,13 +1,15 @@
 <template>
-<Header/>
-<div class="container_style content" v-if="isOpen">
-  <Tags/>
-  <div class="container--content">
-    <NewPost_link/>
-    <router-view/>
-<!--    <ModalWindow />-->
+  <div>
+    <Header />
+    <div class="container_style content">
+      <Tags v-on:sendRequest="requestReload" />
+      <div class="container--content" :key="reload">
+        <NewPost_link />
+        <router-view />
+        <!--    <ModalWindow />-->
+      </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -18,18 +20,22 @@ import NewPost_link from "@/components/NewPost_link";
 
 export default {
   name: "MainLayout",
-  data() {
-    return {
-      isOpen: 1
-    }
-  },
   components: {
     Tags,
     Header,
     NewPost_link,
     // ModalWindow
   },
-
-}
-
+  data() {
+    return {
+      reload: true,
+    };
+  },
+  methods: {
+    requestReload() {
+      this.reload = !this.reload;
+      console.log(this.reload);
+    },
+  },
+};
 </script>
