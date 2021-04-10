@@ -3,20 +3,38 @@
     <p>Всего записей: {{ Posts.length }}</p>
     <div v-for="post in Posts" :key="post.id" class="post">
       <main>
-        <h4 class="post__title post__title__link" href="#" @click="goToPost(post.id)">{{ post.title }}</h4>
+        <h4 class="post__title post__title__link">
+          <router-link
+            :to="{
+              name: 'Post',
+              path: `post_set/${post.id}`,
+              params: { id: post.id },
+            }"
+          >
+            {{ post.title }}
+          </router-link>
+        </h4>
         <div class="user">
-          <img class="user_pic" style="width: 74px; height: 74px;"
-               :src="Profile[checkIndex(Profile, post)].picture" alt="">
+          <img
+            class="user_pic"
+            style="width: 74px; height: 74px"
+            :src="Profile[checkIndex(Profile, post)].picture"
+            alt=""
+          />
           <div class="user_info">
-            <div class="user_name">{{ (post.author) }}</div>
+            <div class="user_name">{{ post.author }}</div>
             <div>
               {{ Profile[checkIndex(Profile, post)].user_rank }}
             </div>
           </div>
         </div>
-        <p>Тег: <a class="tags__text" href="">{{ post.rubric }}</a></p>
+        <p>
+          Тег: <a href="">{{ post.rubric }}</a>
+        </p>
         <div class="date">
-          <p class="post__published_date">Дата публикации: {{ $parseDate(post.created_date) }}</p>
+          <p class="post__published_date">
+            Дата публикации: {{ $parseDate(post.created_date) }}
+          </p>
         </div>
         <div class="home_page__text" id="post_text" :class="{ full: isOpen }">
           <!--          <details>-->
@@ -26,7 +44,7 @@
           <!--          </details>-->
         </div>
         <a href="" v-on:click.prevent="isOpen = !isOpen">Читать дальше</a>
-        <hr style="color: white; border: 1px solid"/>
+        <hr style="color: white; border: 1px solid" />
       </main>
     </div>
     <!--  <div aria-label="...">-->
@@ -45,24 +63,21 @@
     <!--      </li>-->
     <!--    </ul>-->
     <!--  </div>-->
-    <hr/>
+    <hr />
   </div>
 </template>
 
-
 <script>
-
 export default {
-  name: 'Home',
+  name: "Home",
   title: "BlogPost",
 
   data() {
     return {
       Posts: [],
       Profile: [],
-      isOpen: false
-
-    }
+      isOpen: false,
+    };
   },
   components: {},
   created() {
@@ -73,26 +88,23 @@ export default {
     async loadListPosts() {
       this.Posts = await fetch(
         `${this.$store.getters.getServerUrl}/posts_list`
-      ).then(response => response.json())
+      ).then((response) => response.json());
     },
     async loadProfilePosts() {
       this.Profile = await fetch(
         `${this.$store.getters.getServerUrl}/profile_list`
-      ).then(response => response.json())
+      ).then((response) => response.json());
     },
 
     checkIndex(profile, post) {
-      let a = 0
+      let a = 0;
       profile.findIndex(function (element, index) {
         if (element.user === post.author) {
-          return a = index
+          return (a = index);
         }
-      })
-      return a
+      });
+      return a;
     },
-    goToPost(id) {
-      this.$router.push({name: 'Post', params: {id: id}})
-    }
-  }
-}
+  },
+};
 </script>

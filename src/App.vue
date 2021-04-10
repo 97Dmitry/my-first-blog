@@ -12,25 +12,22 @@ import EmptyLayout from "@/layout/EmptyLayout";
 import VoidLayout from "@/layout/VoidLayout";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     MainLayout,
     EmptyLayout,
-    VoidLayout
+    VoidLayout,
   },
 
   computed: {
     layout() {
-      return (this.$route.meta.layout  || "empty") + "-layout";
-    }
-  }
-
-}
+      return (this.$route.meta.layout || "empty") + "-layout";
+    },
+  },
+};
 </script>
-
 
 <style>
 @import "assets/style.css";
 @import "~materialize-css/dist/css/materialize.min.css";
 </style>
-

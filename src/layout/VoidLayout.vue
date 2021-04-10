@@ -1,13 +1,13 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: "NotFoundLayout"
-}
+  name: "NotFoundLayout",
+};
 </script>
 
 <style scoped></style>

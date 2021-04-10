@@ -13,6 +13,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.username.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
@@ -28,6 +29,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.email.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
@@ -43,6 +45,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.password.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
@@ -58,6 +61,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.passwordConfirmation.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
@@ -65,18 +69,21 @@
       <div>
         <p>
           <label>
-            <input type="checkbox" v-on:click="agree = !agree" v-model="agree"/>
+            <input
+              type="checkbox"
+              v-on:click="agree = !agree"
+              v-model="agree"
+            />
             <span>С правилами согласен</span>
           </label>
         </p>
       </div>
       <div class="d-grid gap-2">
-        <button class="btn btn-success" type="submit">Зарегистрироваться <i class="bi bi-arrow-right-square"></i>
+        <button class="btn btn-success" type="submit">
+          Зарегистрироваться <i class="bi bi-arrow-right-square"></i>
         </button>
       </div>
-      <p class="text-center"
-         style="color: #0f0f0f;
-         margin-top: 5px">
+      <p class="text-center" style="color: #0f0f0f; margin-top: 5px">
         Уже есть аккаунт?
         <router-link to="/login">Войти!</router-link>
       </p>
@@ -86,12 +93,12 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import {required, email, minLength} from "@vuelidate/validators";
+import { required, email, minLength } from "@vuelidate/validators";
 
 export default {
   name: "Registration",
   setup() {
-    return {v$: useVuelidate()};
+    return { v$: useVuelidate() };
   },
   data() {
     return {
@@ -99,40 +106,40 @@ export default {
       password: "",
       passwordConfirmation: "",
       username: "",
-      agree: false
+      agree: false,
     };
   },
   validations() {
     return {
-      email: {required, email},
-      password: {required, minLength: minLength(8)},
-      passwordConfirmation: {required, minLength: minLength(8)},
-      username: {required, minLength: minLength(4)},
-      agree: {checked: v => v}
+      email: { required, email },
+      password: { required, minLength: minLength(8) },
+      passwordConfirmation: { required, minLength: minLength(8) },
+      username: { required, minLength: minLength(4) },
+      agree: { checked: (v) => v },
     };
   },
   methods: {
     async submitHandler() {
       this.v$.$touch();
       if (this.v$.$error) {
-        console.log(this.$store.getters.getServerUrl)
+        console.log(this.$store.getters.getServerUrl);
         return;
       } else if (this.password !== this.passwordConfirmation) {
-        this.$error("Пароль должен совпадать")
-        return
+        this.$error("Пароль должен совпадать");
+        return;
       }
       const formData = {
         email: this.email,
         password: this.password,
-        username: this.username
-      }
+        username: this.username,
+      };
       try {
-        await this.$store.dispatch("accountRegistration", formData)
+        await this.$store.dispatch("accountRegistration", formData);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-      this.$message("Аккаунт успешно зарегистрирован")
-      this.$router.push({name: "Home"});
+      this.$message("Аккаунт успешно зарегистрирован");
+      this.$router.push({ name: "Home" });
     },
 
     printError($name, $param) {
@@ -143,7 +150,6 @@ export default {
       } else if ($name === "minLength") {
         return "Минимальная длина должна быть " + $param.min + " символов";
       }
-
     },
   },
 };

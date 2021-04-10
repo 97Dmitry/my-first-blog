@@ -1,24 +1,20 @@
-import { createStore } from 'vuex'
-import auth from "./auth"
+import { createStore } from "vuex";
+import auth from "./auth";
 
 const store = createStore({
   state: {
-    backendUrl: 'http://127.0.0.1:8000/api'
+    backendUrl: "http://127.0.0.1:8000/api",
   },
-  mutations: {
-
-  },
-  actions: {
-
-  },
+  mutations: {},
+  actions: {},
   modules: {
-    auth
+    auth,
   },
   getters: {
-    getServerUrl: state => {
-      return state.backendUrl
-    }
+    getServerUrl: (state) => {
+      return state.backendUrl;
+    },
   },
-})
+});
 
-export default store
+export default store;
